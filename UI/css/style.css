@@ -1,0 +1,520 @@
+/*
+**Styling the iReporter App
+*/
+
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 255, 0.1);
+  font-family: arial;
+}
+
+/*index.html page - header style*/
+li a,
+.sidenav a,
+button,
+h1,
+.tr-header {
+  text-transform: uppercase;
+}
+
+p {
+  font-size: 17px;
+}
+
+header,
+footer {
+  background: radial-gradient(#000, #00f);
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 60px;
+  border-bottom: rgba(0, 0,0, 0.2) solid 1px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.nav-icon {
+  display: none;
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+}
+
+.logo a {
+  text-decoration:none;
+  color: red;
+  font-weight: 700;
+  font-size: 38px;
+  letter-spacing: -3px;
+  font-family: monospace;
+}
+
+.logo-i {
+  color: #fff;
+}
+
+.nav-menu li {
+  display: inline-block;
+}
+
+.sidenav a:hover,
+ul li a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.work-menu {
+  margin: 0 20px;
+}
+
+li a {
+  text-decoration:none;
+  color:#fff;
+  font-weight: 700;
+}
+
+.menu-btn {
+  background: #fff;
+  padding: 4px;
+  font-weight: 700;
+  color: #00f;
+  border-radius: 5px
+}
+
+button,
+input[type=submit],
+.tb-edit,
+.tb-delete {
+  cursor: pointer;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 255, 0.8);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.header-content {
+  color: #fff;
+}
+
+.right-content,
+.left-content,
+.img,
+.vdo {
+  width: 50%;
+  float: left;
+  padding: 20px;
+}
+
+.left-content {
+  padding: 100px 30px 0;
+  text-align: right;
+}
+
+.content-para {
+  padding: 40px 0;
+}
+
+.right-content {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px 0 0 20px;
+  text-align: center;
+}
+
+form {
+  margin: 0 10%;
+}
+
+.form-info {
+  font-style: italic;
+  color: rgba(255, 0, 0, 0.4);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=submit],
+select,
+textarea {
+  width: 100%;
+  outline: none;
+  border-radius: 10px;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+select,
+textarea {
+  padding: 12px 20px;
+  margin: 6px 0px;
+}
+
+input[type=submit] {
+  font-size: 18px;
+  padding: 6px;
+  margin-top: 30px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.register-link {
+  padding: 30px 0;
+}
+
+.register-link a {
+  text-decoration: none;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.register-link a:hover {
+  color: #fff;
+}
+
+.clear {
+  clear: both;
+}
+
+/*index.html page - main style*/
+hr {
+  width: 20px;
+  border: 1px solid;
+}
+
+.main-works {
+  text-align: center;
+  padding: 40px 20px 80px;
+}
+
+.work-step {
+  width: 33.33%;
+  float: left;
+  padding: 10px;
+}
+
+.work-icon {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 45px;
+}
+
+.work-body {
+  background: #fff;
+}
+
+.work-body p {
+  text-align: justify;
+}
+
+.div-bg {
+  background: rgba(0, 0, 255, 0.2);
+}
+
+.media {
+  background: #fff;
+  padding: 20px;
+}
+
+img,
+iframe {
+  width: 100%;
+  height: 400px;
+}
+
+footer {
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+}
+
+.footer-para {
+  margin: 0;
+}
+
+
+/*profile.html page style*/
+  .db-body {
+    background: #000;
+  }
+
+  .user-name {
+    color: #fff;
+    background: rgba(255,255,255, 0.2);
+    text-align: center;
+    padding: 40px 0;
+    margin: 0;
+    word-break: break-word;
+  }
+
+  .db-sidenav {
+    width: 15%;
+    text-align: right;
+    /*padding-right: 10px;*/
+  }
+
+  .main-div {
+    width: 85%;
+    background: #fff;
+  }
+
+  .db-sidenav,
+  .main-div {
+    float: left;
+  }
+
+  .nav-list {
+    padding: 10px;
+  }
+
+  .nav-list:hover {
+    background: rgba(255,255,255, 0.2);
+    cursor: pointer;
+  }
+
+  .nav-list a {
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  .nav-list .fa {
+    margin: 0 5px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .db-header {
+    text-transform: none;
+    text-align: center;
+  }
+
+  .record-header {
+    padding: 10px 0 0 10px;
+  }
+
+  .db-redFlag,
+  .db-intervention {
+    width: 25%;
+    float: left;
+  }
+
+  .redFlag-para,
+  .intervention-para {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .para-nos {
+    font-weight: 700;
+    font-size: 30px;
+  }
+
+  .db-redFlag1,
+  .db-intervention3 {
+    background: #311b92;
+    color: #fff;
+  }
+
+  .db-redFlag2,
+  .db-intervention4 {
+    background: #ea80fc;
+    color: #000;
+  }
+
+  .db-redFlag3,
+  .db-intervention1 {
+    background: #1e88e5;
+    color: #fff;
+  }
+
+  .db-redFlag4,
+  .db-intervention2 {
+    background: #ffcc80;
+    color: #000;
+  }
+
+  .para-sub {
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  .db-table {
+    padding: 40px 10px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .table-header,
+  .td-action {
+    text-align: center;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+  }
+
+  .tb-btn {
+    color: #000;
+  }
+
+  .tb-fa {
+    margin: 0 5px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: rgba(255,255,255,0.3);
+  }
+
+  td a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .tb-date {
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(255,255,255, 0.6);
+  }
+
+  /*draft.html page style*/
+  td .fa-edit,
+  td .fa-trash {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .tb-edit {
+    color: skyblue;
+  }
+
+  .tb-delete {
+    color: #f00;
+  }
+
+  /*all-records.html page style*/
+  td img {
+    width: 100px;
+    height: 150px;
+  }
+
+/*Media queries*/
+@media (max-width: 600px) {
+
+
+
+
+
+  .nav-header {
+    padding: 20px;
+  }
+
+  .logo a {
+    font-size: 34px;
+  }
+
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-weight: 700;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-icon {
+    display: unset;
+    font-size: 25px;
+  }
+
+  .right-content,
+  .left-content,
+  .img,
+  .vdo {
+    width: 100%;
+  }
+
+  .main-works {
+    padding: 20px 20px 40px;
+  }
+
+  img,
+  iframe {
+    height: 250px;
+  }
+
+  .left-content {
+    padding: 20px 20px 0;
+    text-align: center;
+  }
+
+  .right-content {
+    border-radius: 20px 0;
+  }
+
+  .work-step {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .db-sidenav {
+    display: none;
+  }
+
+  .main-div {
+    width: 100%;
+  }
+
+  .db-redFlag,
+  .db-intervention {
+    width: 50%;
+    float: left;
+  }
+
+}
+
