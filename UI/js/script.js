@@ -1,9 +1,7 @@
 let sideNav = document.getElementById("mySidenav");
+let btn = document.getElementById('btn');
 
-function openNav() {
-  sideNav.style.width = "250px";
-}
+let openNav = () => sideNav.style.width = "250px";
+let closeNav = () => sideNav.style.width = "0";
 
-function closeNav() {
-  sideNav.style.width = "0";
-}
+btn.onclick = () => location.href = 'profile.html';
