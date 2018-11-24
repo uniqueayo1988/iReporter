@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name= "viewport" content= "width=device-width, initial-scale=1.0">
+  <title>iReporter</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="db-body">
+  <header>
+    <nav>
+      <div class="nav-header">
+        <div class="logo">
+          <a href="#"><span class="logo-i">i</span>REPORTER</a>
+        </div>
+
+        <div class="">
+          <ul class="nav-menu">
+<!--             <li><a href="">Home</a></li>
+            <li><a href="#how" class="work-menu">How it works</a></li> -->
+            <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
+          </ul>
+
+          <!-- <div class="nav-icon" onclick= menu();> -->
+          <div class="nav-icon" onclick="openNav()";>
+            <span class="navs">&#9776</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <h2 class="user-name">John Doe</h2>
+        <a href="profile.html">Profile</a>
+        <a href="create.html">Add Record</a>
+        <a href="draft.html">My Drafts</a>
+        <a href="draft.html">All Records</a>
+        <a href="index.html"><button class="menu-btn">Logout</button></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="db-sidenav">
+      <section>
+        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>John Doe</h2>
+        <ul>
+          <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
+          <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
+          <li class="nav-list"><a href="draft.html"><i class="fa fa-envelope-open-o"></i>My Drafts</a></li>
+          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>All Records</a></li>
+          <li class="nav-list"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="main-div">
+      <h1 class="db-header">iREPORTER DASHBOARD</h1><hr>
+
+      <section class="db-table">
+        <h2 class="table-header">Create Record</h2>
+
+    <form action="">
+          <label for="" class="form-info">*CREATE A RED FLAG OR INTERVENTION RECORD</label>
+          <input type="text" required placeholder="TITLE OF RECORD">
+          <textarea required placeholder="WRITE A RECORD..." rows="10"></textarea><br>
+          <input type="radio" name="record-type" value="Red flag" checked> Red flag Record<br>
+          <input type="radio" name="record-type" value="Intervention"> Intervention Record<br><br>
+          <input type="text" required placeholder="LOCATION"><br><br>
+
+          <label>Select an image/video: </label><br>
+          <input type="file" name="myFile">
+
+          <input type="submit" value="SUBMIT">
+        </form>
+
+      </section>
+
+    </div>
+
+    <div class="clear"></div>
+  </main>
+
+  <footer>
+    <div class="logo">
+      <a href="#"><span class="logo-i">i</span>REPORTER</a>
+    </div>
+    <p class="footer-para">All rights reserved &copy; 2018</p>
+  </footer>
+
+
+  <script>
+    let sideNav = document.getElementById("mySidenav");
+
+    function openNav() {
+      sideNav.style.width = "250px";
+    }
+
+    function closeNav() {
+      sideNav.style.width = "0";
+    }
+  </script>
+</body>
+</html>

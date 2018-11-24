@@ -441,13 +441,14 @@ footer {
     height: 150px;
   }
 
+  /*create.html page style*/
+  input[type=file] {
+    font-size: 18px;
+    width: 100%;
+  }
+
 /*Media queries*/
 @media (max-width: 600px) {
-
-
-
-
-
   .nav-header {
     padding: 20px;
   }
