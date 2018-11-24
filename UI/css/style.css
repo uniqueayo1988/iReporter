@@ -379,7 +379,8 @@ footer {
   }
 
   .table-header,
-  .td-action {
+  .td-action,
+  .record-header {
     text-align: center;
   }
 
@@ -414,7 +415,8 @@ footer {
     text-decoration: none;
   }
 
-  .tb-date {
+  .tb-date,
+  .record-name {
     font-size: 12px;
     font-style: italic;
     color: rgba(255,255,255, 0.6);
@@ -445,6 +447,25 @@ footer {
   input[type=file] {
     font-size: 18px;
     width: 100%;
+  }
+
+  /*record.html page style*/
+  .db-content {
+    width: 80%;
+    margin: auto;
+    padding: 20px 0;
+  }
+
+  .record-header {
+    padding: 0;
+  }
+
+  .record-name {
+    color: rgba(0,0,0, 0.5);
+  }
+
+  .db-content p {
+    text-align: justify;
   }
 
 /*Media queries*/
