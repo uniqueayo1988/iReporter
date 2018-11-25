@@ -172,7 +172,6 @@ input[type=text],
 input[type=email],
 input[type=password],
 input[type=submit],
-select,
 textarea {
   width: 100%;
   outline: none;
@@ -182,7 +181,6 @@ textarea {
 input[type=text],
 input[type=email],
 input[type=password],
-select,
 textarea {
   padding: 12px 20px;
   margin: 6px 0px;
@@ -467,6 +465,9 @@ footer {
   .db-content p {
     text-align: justify;
   }
+
+  /*admin-home.html page style*/
+
 
 /*Media queries*/
 @media (max-width: 600px) {
