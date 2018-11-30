@@ -19,8 +19,20 @@ const Redflag = {
   getAll(req, res) {
     const redflags = RedflagModel.findAll();
     return res.status(200).send({
-      "status": 200,
-      "data": redflags
+      status: 200,
+      data: redflags
+    });
+  },
+
+  getOne(req, res) {
+    const redflag = RedflagModel.findOne(req.params.id);
+    if (!redflag) {
+      return res.status(404).send({ message: 'Red-flag record not found' });
+    }
+
+    return res.status(200).send({
+      status: 200,
+      data: [redflag]
     });
   }
 

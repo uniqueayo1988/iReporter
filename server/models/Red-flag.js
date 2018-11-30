@@ -26,6 +26,10 @@ class Redflag {
   findAll() {
     return this.redflags;
   }
+
+  findOne(id) {
+    return this.redflags.find(redflag => redflag.id === id);
+  }
 }
 
 export default new Redflag();
