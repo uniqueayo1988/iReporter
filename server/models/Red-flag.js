@@ -22,6 +22,10 @@ class Redflag {
     this.redflags.push(newRedflag);
     return newRedflag;
   }
+
+  findAll() {
+    return this.redflags;
+  }
 }
 
 export default new Redflag();

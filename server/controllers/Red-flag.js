@@ -14,6 +14,14 @@ const Redflag = {
         message: 'Created red-flag record'
       }]
     });
+  },
+
+  getAll(req, res) {
+    const redflags = RedflagModel.findAll();
+    return res.status(200).send({
+      "status": 200,
+      "data": redflags
+    });
   }
 
 };

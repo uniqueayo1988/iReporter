@@ -4,7 +4,7 @@ import Redflag from '../controllers/Red-flag';
 const router = express.Router();
 
 router.post('/red-flags', Redflag.create);
-// router.get('/red-flags', Redflag.getAll);
+router.get('/red-flags', Redflag.getAll);
 // router.get('/red-flags/:id', Redflag.getOne);
 // router.put('/red-flags/:id/location', Redflag.update);
 // router.put('/red-flags/:id/comment', Redflag.update);
