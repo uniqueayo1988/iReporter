@@ -34,8 +34,40 @@ const Redflag = {
       status: 200,
       data: [redflag]
     });
-  }
+  },
 
+  update(req, res) {
+    const redflag = RedflagModel.findOne(req.params.id);
+
+    if (!redflag) {
+      return res.status(404).send({ message: 'Red-flag record not found' });
+    }
+
+    if (!req.body.location && !req.body.comment) {
+      return res.status(400).send({ message: 'Field can not be blank' });
+    }
+
+    // const updatedRedflag = RedflagModel.update(req.params.id, req.body);
+    RedflagModel.update(req.params.id, req.body);
+    if (req.body.location) {
+      return res.status(200).send({
+        status: 200,
+        data: [{
+          id: redflag.id,
+          message: 'Updated red-flag record\'s location'
+        }]
+      });
+    }
+
+    return res.status(200).send({
+      status: 200,
+      data: [{
+        id: redflag.id,
+        message: 'Updated red-flag record\'s comment'
+      }]
+    });
+
+  }
 };
 
 export default Redflag;
