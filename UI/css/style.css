@@ -172,7 +172,6 @@ input[type=text],
 input[type=email],
 input[type=password],
 input[type=submit],
-select,
 textarea {
   width: 100%;
   outline: none;
@@ -182,7 +181,6 @@ textarea {
 input[type=text],
 input[type=email],
 input[type=password],
-select,
 textarea {
   padding: 12px 20px;
   margin: 6px 0px;
@@ -379,7 +377,8 @@ footer {
   }
 
   .table-header,
-  .td-action {
+  .td-action,
+  .record-header {
     text-align: center;
   }
 
@@ -414,7 +413,8 @@ footer {
     text-decoration: none;
   }
 
-  .tb-date {
+  .tb-date,
+  .record-name {
     font-size: 12px;
     font-style: italic;
     color: rgba(255,255,255, 0.6);
@@ -441,13 +441,36 @@ footer {
     height: 150px;
   }
 
+  /*create.html page style*/
+  input[type=file] {
+    font-size: 18px;
+    width: 100%;
+  }
+
+  /*record.html page style*/
+  .db-content {
+    width: 80%;
+    margin: auto;
+    padding: 20px 0;
+  }
+
+  .record-header {
+    padding: 0;
+  }
+
+  .record-name {
+    color: rgba(0,0,0, 0.5);
+  }
+
+  .db-content p {
+    text-align: justify;
+  }
+
+  /*admin-home.html page style*/
+
+
 /*Media queries*/
 @media (max-width: 600px) {
-
-
-
-
-
   .nav-header {
     padding: 20px;
   }
