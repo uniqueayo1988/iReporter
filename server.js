@@ -1,10 +1,12 @@
 import express from 'express';
+import redflagRoutes from './server/routers/router';
 
 const app = express();
-
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.use('/api/v1', redflagRoutes);
 
 app.listen(port, () => {
   console.log(`Server Started at port ${port}`);
@@ -12,4 +14,4 @@ app.listen(port, () => {
 
 // app.listen(port);
 
-module.exports = app;
+export default app;
