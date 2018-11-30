@@ -39,6 +39,13 @@ class Redflag {
     this.redflags[index].title = data.title || redflag.title;
     return this.redflags[index];
   }
+
+  delete(id) {
+    const redflag = this.findOne(id);
+    const index = this.redflags.indexOf(redflag);
+    this.redflags.splice(index, 1);
+    return {};
+  }
 }
 
 export default new Redflag();

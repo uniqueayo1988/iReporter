@@ -47,7 +47,6 @@ const Redflag = {
       return res.status(400).send({ message: 'Field can not be blank' });
     }
 
-    // const updatedRedflag = RedflagModel.update(req.params.id, req.body);
     RedflagModel.update(req.params.id, req.body);
     if (req.body.location) {
       return res.status(200).send({
@@ -66,8 +65,25 @@ const Redflag = {
         message: 'Updated red-flag record\'s comment'
       }]
     });
+  },
 
+  delete(req, res) {
+    const redflag = RedflagModel.findOne(req.params.id);
+
+    if (!redflag) {
+      return res.status(404).send({ message: 'redflag not found' });
+    }
+
+    RedflagModel.delete(req.params.id);
+    return res.status(200).send({
+      status: 204,
+      data: [{
+        id: redflag.id,
+        message: 'red-flag record has been deleted'
+      }]
+    });
   }
+
 };
 
 export default Redflag;
