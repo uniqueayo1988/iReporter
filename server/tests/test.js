@@ -49,5 +49,30 @@ describe('POST /api/v1/red-flags', () => {
       .expect(400)
       .end(done);
   });
+});
 
+// Test for 'GET /api/v1/red-flags' endpoint
+describe('GET /api/v1/red-flags', () => {
+  it('should get all records', (done) => {
+    request(app)
+      .get('/api/v1/red-flags')
+      .expect(200, done);
+  });
+
+  it('should test for response status', (done) => {
+    request(app)
+      .get('/api/v1/red-flags')
+      .expect((res) => {
+        expect(res.body.status).toBe(200).toBeA('number');
+      })
+      .end(done);
+  });
+
+  it('should test for Headers', (done) => {
+    request(app)
+      .get('/api/v1/red-flags')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(done);
+  });
 });
