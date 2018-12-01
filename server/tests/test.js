@@ -181,3 +181,18 @@ describe('PATCH /api/v1/red-flags/:id/comment', () => {
       .end(done);
   });
 });
+
+// Test for 'Delete /api/v1/red-flags/:id' endpoint
+describe('DELETE /api/v1/red-flags/:id', () => {
+  it('should delete a red-flag record', (done) => {
+    request(app)
+      .delete(`/api/v1/red-flags/${redflagRecord.id}`)
+      .expect(200, done);
+  });
+
+  it('should test for invalid record id', (done) => {
+    request(app)
+      .delete(`/api/v1/red-flags/${redflagRecord.id}1`)
+      .expect(404, done);
+  });
+});

@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.com/uniqueayo1988/iReporter.svg?branch=develop)](https://travis-ci.com/uniqueayo1988/iReporter)
-
-[![Coverage Status](https://coveralls.io/repos/github/uniqueayo1988/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/uniqueayo1988/iReporter?branch=develop)
+[![Build Status](https://travis-ci.com/uniqueayo1988/iReporter.svg?branch=develop)](https://travis-ci.com/uniqueayo1988/iReporter)[![Coverage Status](https://coveralls.io/repos/github/uniqueayo1988/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/uniqueayo1988/iReporter?branch=develop)
 
 # iReporter App
 
