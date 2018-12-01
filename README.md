@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/uniqueayo1988/iReporter.svg?branch=develop)](https://travis-ci.com/uniqueayo1988/iReporter)
+
 # iReporter App
 
 ## Project Overview
