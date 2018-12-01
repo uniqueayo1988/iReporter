@@ -4,7 +4,7 @@
 	"rules": {
 		"linebreak-style": [
             "error",
-            "windows"
+            "unix"
         ],
         "comma-dangle": [
 			"error",

@@ -1,5 +1,6 @@
 import expect from 'expect';
 import request from 'supertest';
+import RedflagModel from '../models/Red-flag';
 import app from '../../server';
 
 const redflag = {
@@ -8,6 +9,8 @@ const redflag = {
   image: 'pix.jpg',
   comment: 'hello how are'
 };
+
+const redflagRecord = RedflagModel.create(redflag);
 
 // Test for 'POST /api/v1/red-flags' endpoint
 describe('POST /api/v1/red-flags', () => {
@@ -19,7 +22,6 @@ describe('POST /api/v1/red-flags', () => {
       .end(done);
   });
 
-
   it('should test for response status', (done) => {
     request(app)
       .post('/api/v1/red-flags')
@@ -30,7 +32,6 @@ describe('POST /api/v1/red-flags', () => {
       .end(done);
   });
 
-
   it('should test for response message', (done) => {
     request(app)
       .post('/api/v1/red-flags')
@@ -40,7 +41,6 @@ describe('POST /api/v1/red-flags', () => {
       })
       .end(done);
   });
-
 
   it('should test for invalid record', (done) => {
     request(app)
@@ -74,5 +74,20 @@ describe('GET /api/v1/red-flags', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .end(done);
+  });
+});
+
+// Test for 'GET /api/v1/red-flags/:id' endpoint
+describe('GET /api/v1/red-flags/:id', () => {
+  it('should get a specific record', (done) => {
+    request(app)
+      .get(`/api/v1/red-flags/${redflagRecord.id}`)
+      .expect(200, done);
+  });
+
+  it('should test for invalid record id', (done) => {
+    request(app)
+      .get(`/api/v1/red-flags/${redflagRecord.id}1`)
+      .expect(404, done);
   });
 });
