@@ -91,3 +91,93 @@ describe('GET /api/v1/red-flags/:id', () => {
       .expect(404, done);
   });
 });
+
+// Test for 'PATCH /api/v1/red-flags/:id/location' endpoint
+describe('PATCH /api/v1/red-flags/:id/location', () => {
+  it('should update a record location', (done) => {
+    const location = {
+      location: 'london'
+    };
+    request(app)
+      .patch(`/api/v1/red-flags/${redflagRecord.id}/location`)
+      .send(location)
+      .expect(200, done);
+  });
+
+  it('should test for invalid record id', (done) => {
+    request(app)
+      .patch(`/api/v1/red-flags/${redflagRecord.id}1/location`)
+      .expect(404, done);
+  });
+
+  it('should test for blank location from user', (done) => {
+    const blankLocation = {
+      location: ''
+    };
+    request(app)
+      .patch(`/api/v1/red-flags/${redflagRecord.id}/location`)
+      .send(blankLocation)
+      .expect((res) => {
+        expect(res.body.message).toBe('Field can not be blank');
+      })
+      .end(done);
+  });
+
+  it('should test for response message', (done) => {
+    const location = {
+      location: 'london'
+    };
+    request(app)
+      .patch(`/api/v1/red-flags/${redflagRecord.id}/location`)
+      .send(location)
+      .expect((res) => {
+        expect(res.body.data[0].message).toBe('Updated red-flag record\'s location');
+      })
+      .end(done);
+  });
+});
+
+// Test for 'PATCH /api/v1/red-flags/:id/comment' endpoint
+describe('PATCH /api/v1/red-flags/:id/comment', () => {
+  it('should update a record comment', (done) => {
+    const comment = {
+      comment: 'This is some comment'
+    };
+    request(app)
+      .patch(`/api/v1/red-flags/${redflagRecord.id}/comment`)
+      .send(comment)
+      .expect(200, done);
+  });
+
+  it('should test for invalid record id', (done) => {
+    request(app)
+      .patch(`/api/v1/red-flags/${redflagRecord.id}1/comment`)
+      .expect(404, done);
+  });
+
+  it('should test for blank comment from user', (done) => {
+    const blankComment = {
+      comment: ''
+    };
+    request(app)
+      .patch(`/api/v1/red-flags/${redflagRecord.id}/comment`)
+      .send(blankComment)
+      .expect((res) => {
+        expect(res.body.message).toBe('Field can not be blank');
+      })
+      .end(done);
+  });
+
+  it('should test for response message', (done) => {
+    const comment = {
+      comment: 'This is some comment'
+    };
+    request(app)
+      .patch(`/api/v1/red-flags/${redflagRecord.id}/comment`)
+      .send(comment)
+      .expect((res) => {
+        expect(res.body.data[0].message).toBe('Updated red-flag record\'s comment');
+      })
+      .end(done);
+  });
+});
