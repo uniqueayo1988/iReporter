@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/uniqueayo1988/iReporter.svg?branch=develop)](https://travis-ci.com/uniqueayo1988/iReporter)[![Coverage Status](https://coveralls.io/repos/github/uniqueayo1988/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/uniqueayo1988/iReporter?branch=develop)
+[![Build Status](https://travis-ci.com/uniqueayo1988/iReporter.svg?branch=develop)](https://travis-ci.com/uniqueayo1988/iReporter) [![Coverage Status](https://coveralls.io/repos/github/uniqueayo1988/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/uniqueayo1988/iReporter?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/932916695509b63662c9/maintainability)](https://codeclimate.com/github/uniqueayo1988/iReporter/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/932916695509b63662c9/test_coverage)](https://codeclimate.com/github/uniqueayo1988/iReporter/test_coverage)
 
 # iReporter App
 
