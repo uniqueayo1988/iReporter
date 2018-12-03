@@ -17,8 +17,6 @@
 
         <div class="">
           <ul class="nav-menu">
-<!--             <li><a href="">Home</a></li>
-            <li><a href="#how" class="work-menu">How it works</a></li> -->
             <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
           </ul>
 
@@ -67,7 +65,8 @@
           <textarea required placeholder="WRITE A RECORD..." rows="10"></textarea><br>
           <input type="radio" name="record-type" value="Red flag" checked> Red flag Record<br>
           <input type="radio" name="record-type" value="Intervention"> Intervention Record<br><br>
-          <input type="text" required placeholder="LOCATION"><br><br>
+          <input id="geo-data" type="text" value="" disabled="" required placeholder="GEOLOCATION">
+          <input id="geo-btn" type="button" value="Get Geolocation"><br><br>
 
           <label>Select an image/video: </label><br>
           <input type="file" name="myFile">
@@ -89,17 +88,17 @@
     <p class="footer-para">All rights reserved &copy; 2018</p>
   </footer>
 
-
+  <script src="js/script.js"></script>
   <script>
-    let sideNav = document.getElementById("mySidenav");
-
-    function openNav() {
-      sideNav.style.width = "250px";
-    }
-
-    function closeNav() {
-      sideNav.style.width = "0";
+    geoBtn.onclick = () => {
+      if ( navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          let geo = `lat:${position.coords.latitude} long:${position.coords.longitude}`;
+          geoData.value = geo;
+        })
+      }
     }
   </script>
+
 </body>
 </html>
