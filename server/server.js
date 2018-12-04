@@ -1,5 +1,5 @@
 import express from 'express';
-import redflagRoutes from './server/routers/router';
+import redflagRoutes from './routers/router';
 
 const app = express();
 const port = process.env.PORT || 3000;
