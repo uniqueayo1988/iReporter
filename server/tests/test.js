@@ -1,7 +1,7 @@
 import expect from 'expect';
 import request from 'supertest';
 import RedflagModel from '../models/Red-flag';
-import app from '../../server';
+import app from '../server';
 
 const redflag = {
   title: 'water',
@@ -18,26 +18,31 @@ describe('POST /api/v1/red-flags', () => {
     request(app)
       .post('/api/v1/red-flags')
       .send(redflag)
+      .set('Accept', 'application/json')
       .expect(201)
-      .end(done);
-  });
-
-  it('should test for response status', (done) => {
-    request(app)
-      .post('/api/v1/red-flags')
-      .send(redflag)
       .expect((res) => {
+        expect(res.body.data[0].message).toBe('Created red-flag record');
         expect(res.body.status).toBe(201).toBeA('number');
       })
       .end(done);
   });
 
-  it('should test for response message', (done) => {
+  it('should test response message if comment is blank', (done) => {
     request(app)
       .post('/api/v1/red-flags')
-      .send(redflag)
+      .send({ comment: '' })
       .expect((res) => {
-        expect(res.body.data[0].message).toBe('Created red-flag record');
+        expect(res.body.message).toBe('Location and comment fields are required');
+      })
+      .end(done);
+  });
+
+  it('should test response message if location is blank', (done) => {
+    request(app)
+      .post('/api/v1/red-flags')
+      .send({ location: '' })
+      .expect((res) => {
+        expect(res.body.message).toBe('Location and comment fields are required');
       })
       .end(done);
   });
