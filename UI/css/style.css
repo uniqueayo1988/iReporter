@@ -93,6 +93,11 @@ li a {
   border-radius: 5px
 }
 
+.menu-btn:hover {
+  background: rgb(0, 0, 255);
+  color: #fff;
+}
+
 button,
 input[type=submit],
 .tb-edit,
@@ -191,6 +196,11 @@ input[type=submit] {
   padding: 6px;
   margin-top: 30px;
   background: rgba(0, 0, 0, 0.1);
+}
+
+input[type=submit]:hover {
+  color: #fff;
+  background: rgba(0, 0, 255);
 }
 
 .register-link {
