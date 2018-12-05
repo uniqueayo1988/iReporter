@@ -2,16 +2,13 @@ import RedflagModel from '../models/Red-flag';
 
 const Redflag = {
   create(req, res) {
-    if (!req.body.location || !req.body.comment) {
-      return res.status(400).send({ message: 'Location and comment fields are required' });
-    }
-
     const redflag = RedflagModel.create(req.body);
     return res.status(201).send({
       status: 201,
       data: [{
         id: redflag.id,
-        message: 'Created red-flag record'
+        message: 'Created red-flag record',
+        redflag
       }]
     });
   },
@@ -26,10 +23,6 @@ const Redflag = {
 
   getOne(req, res) {
     const redflag = RedflagModel.findOne(req.params.id);
-    if (!redflag) {
-      return res.status(404).send({ message: 'Red-flag record not found' });
-    }
-
     return res.status(200).send({
       status: 200,
       data: [redflag]
@@ -38,22 +31,14 @@ const Redflag = {
 
   update(req, res) {
     const redflag = RedflagModel.findOne(req.params.id);
-
-    if (!redflag) {
-      return res.status(404).send({ message: 'Red-flag record not found' });
-    }
-
-    if (!req.body.location && !req.body.comment) {
-      return res.status(400).send({ message: 'Field can not be blank' });
-    }
-
     RedflagModel.update(req.params.id, req.body);
     if (req.body.location) {
       return res.status(200).send({
         status: 200,
         data: [{
           id: redflag.id,
-          message: 'Updated red-flag record\'s location'
+          message: 'Updated red-flag record\'s location',
+          redflag
         }]
       });
     }
@@ -62,18 +47,14 @@ const Redflag = {
       status: 200,
       data: [{
         id: redflag.id,
-        message: 'Updated red-flag record\'s comment'
+        message: 'Updated red-flag record\'s comment',
+        redflag
       }]
     });
   },
 
   delete(req, res) {
     const redflag = RedflagModel.findOne(req.params.id);
-
-    if (!redflag) {
-      return res.status(404).send({ message: 'redflag not found' });
-    }
-
     RedflagModel.delete(req.params.id);
     return res.status(200).send({
       status: 204,
