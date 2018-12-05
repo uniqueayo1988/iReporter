@@ -35,7 +35,7 @@
         <a href="profile.html">Profile</a>
         <a href="create.html">Add Record</a>
         <a href="draft.html">My Drafts</a>
-        <a href="draft.html">All Records</a>
+        <a href="draft.html">General Records</a>
         <a href="index.html"><button class="menu-btn">Logout</button></a>
       </div>
     </nav>
@@ -49,7 +49,7 @@
           <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
           <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
           <li class="nav-list"><a href="draft.html"><i class="fa fa-envelope-open-o"></i>My Drafts</a></li>
-          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>All Records</a></li>
+          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>General Records</a></li>
           <li class="nav-list"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
         </ul>
       </section>
@@ -59,15 +59,17 @@
       <h1 class="db-header">iREPORTER DASHBOARD</h1><hr>
 
       <section class="db-table">
-        <h2 class="table-header">Create Record</h2>
+        <h2 class="table-header">Edit Record</h2>
 
     <form action="">
-          <label for="" class="form-info">*CREATE A RED FLAG OR INTERVENTION RECORD</label>
+          <label for="" class="form-info">*EDIT RED FLAG OR INTERVENTION RECORD</label>
           <input type="text" required placeholder="TITLE OF RECORD" value="THIS IS A RED FLAG REPORT">
           <textarea required placeholder="WRITE A RECORD..." rows="10">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</textarea><br>
           <input type="radio" name="record-type" value="Red flag" checked> Red flag Record<br>
           <input type="radio" name="record-type" value="Intervention"> Intervention Record<br><br>
-          <input type="text" required placeholder="LOCATION"><br><br>
+          <br><br>
+          <input id="geo-data" type="text" value="lat: 1.4254 long:5.21425" disabled="" required placeholder="GEOLOCATION">
+          <input id="geo-btn" type="button" value="Get Geolocation"><br><br>
 
           <label>Select an image/video: </label><br>
           <input type="file" name="myFile">
@@ -89,16 +91,14 @@
     <p class="footer-para">All rights reserved &copy; 2018</p>
   </footer>
 
-
   <script>
-    let sideNav = document.getElementById("mySidenav");
-
-    function openNav() {
-      sideNav.style.width = "250px";
-    }
-
-    function closeNav() {
-      sideNav.style.width = "0";
+    geoBtn.onclick = () => {
+      if ( navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          let geo = `lat:${position.coords.latitude} long:${position.coords.longitude}`;
+          geoData.value = geo;
+        })
+      }
     }
   </script>
 </body>

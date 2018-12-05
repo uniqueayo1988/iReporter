@@ -93,6 +93,11 @@ li a {
   border-radius: 5px
 }
 
+.menu-btn:hover {
+  background: rgb(0, 0, 255);
+  color: #fff;
+}
+
 button,
 input[type=submit],
 .tb-edit,
@@ -193,6 +198,11 @@ input[type=submit] {
   background: rgba(0, 0, 0, 0.1);
 }
 
+input[type=submit]:hover {
+  color: #fff;
+  background: rgba(0, 0, 255);
+}
+
 .register-link {
   padding: 30px 0;
 }
@@ -269,7 +279,7 @@ footer {
 
 /*profile.html page style*/
   .db-body {
-    background: #000;
+    background: #000046;
   }
 
   .user-name {
@@ -343,27 +353,27 @@ footer {
   }
 
   .db-redFlag1,
-  .db-intervention3 {
-    background: #311b92;
+  .db-intervention1 {
+    background: #00e800;
     color: #fff;
   }
 
   .db-redFlag2,
-  .db-intervention4 {
+  .db-intervention2 {
     background: #ea80fc;
-    color: #000;
+    color: #fff;
   }
 
   .db-redFlag3,
-  .db-intervention1 {
-    background: #1e88e5;
+  .db-intervention3 {
+    background: #8b8bff;
     color: #fff;
   }
 
   .db-redFlag4,
-  .db-intervention2 {
-    background: #ffcc80;
-    color: #000;
+  .db-intervention4 {
+    background: #f00;
+    color: #fff;
   }
 
   .para-sub {
@@ -387,7 +397,7 @@ footer {
     border-spacing: 0;
     width: 100%;
     border: 1px solid #ddd;
-    background: rgba(0,0,0,0.8);
+    background: #000046;
     color: #fff;
   }
 

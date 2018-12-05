@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name= "viewport" content= "width=device-width, initial-scale=1.0">
   <title>iReporter</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="db-body">
@@ -20,7 +20,6 @@
             <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
           </ul>
 
-          <!-- <div class="nav-icon" onclick= menu();> -->
           <div class="nav-icon" onclick="openNav()";>
             <span class="navs">&#9776</span>
           </div>
@@ -29,12 +28,10 @@
 
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <h2 class="user-name">John Doe</h2>
-        <a href="profile.html">Profile</a>
-        <a href="create.html">Add Record</a>
-        <a href="draft.html">My Drafts</a>
-        <a href="draft.html">General Records</a>
-        <a href="index.html"><button class="menu-btn">Logout</button></a>
+        <h2 class="user-name">Admin</h2>
+        <a href="index.html">Home</a>
+        <a href="all-records.html">All Records</a>
+        <a href="../index.html"><button class="menu-btn">Logout</button></a>
       </div>
     </nav>
   </header>
@@ -42,22 +39,22 @@
   <main>
     <div class="db-sidenav">
       <section>
-        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>John Doe</h2>
+        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>Admin</h2>
         <ul>
-          <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
-          <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
-          <li class="nav-list"><a href="draft.html"><i class="fa fa-envelope-open-o"></i>My Drafts</a></li>
-          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>General Records</a></li>
-          <li class="nav-list"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+          <li class="nav-list"><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
+          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>User Records</a></li>
+          <li class="nav-list"><a href="../index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
         </ul>
       </section>
     </div>
 
     <div class="main-div">
+      <h1 class="db-header">ADMIN DASHBOARD</h1><hr>
+
       <section class="db-content">
         <h2 class="record-header">THIS IS A RED FLAG REPORT</h2>
         <span class="record-name">24/02/18 by Allen Olojumo</span>
-        <img src="img/fraud.jpg" alt="red-flag alert">
+        <img src="../img/fraud.jpg" alt="red-flag alert">
         <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
         <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
         <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
@@ -75,17 +72,6 @@
     <p class="footer-para">All rights reserved &copy; 2018</p>
   </footer>
 
-
-  <script>
-    let sideNav = document.getElementById("mySidenav");
-
-    function openNav() {
-      sideNav.style.width = "250px";
-    }
-
-    function closeNav() {
-      sideNav.style.width = "0";
-    }
-  </script>
+  <script src="../js/script.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name= "viewport" content= "width=device-width, initial-scale=1.0">
   <title>iReporter</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="db-body">
@@ -28,12 +28,10 @@
 
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <h2 class="user-name">John Doe</h2>
-        <a href="profile.html">Profile</a>
-        <a href="create.html">Add Record</a>
-        <a href="draft.html">My Drafts</a>
-        <a href="all-records.html">General Records</a>
-        <a href="index.html"><button class="menu-btn">Logout</button></a>
+        <h2 class="user-name">Admin</h2>
+        <a href="index.html">Home</a>
+        <a href="all-records.html">User Records</a>
+        <a href="../index.html"><button class="menu-btn">Logout</button></a>
       </div>
     </nav>
   </header>
@@ -41,72 +39,61 @@
   <main>
     <div class="db-sidenav">
       <section>
-        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>John Doe</h2>
+        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>Admin</h2>
         <ul>
-          <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
-          <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
-          <li class="nav-list"><a href="draft.html"><i class="fa fa-envelope-open-o"></i>My Drafts</a></li>
-          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>General Records</a></li>
-          <li class="nav-list"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+          <li class="nav-list"><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
+          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>User Records</a></li>
+          <li class="nav-list"><a href="../index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
         </ul>
       </section>
     </div>
 
     <div class="main-div">
-      <h1 class="db-header">iREPORTER DASHBOARD</h1><hr>
+      <h1 class="db-header">ADMIN DASHBOARD</h1><hr>
 
       <section class="db-table">
-        <h2 class="table-header">My Drafts</h2>
+        <h2 class="table-header">User Records</h2>
 
         <div style="overflow-x:auto;">
-          <a href="create.html"><button class="menu-btn tb-btn"><i class="fa fa-plus tb-fa"></i>Add Record</button></a>
           <table>
             <tr class="tr-header">
               <th>S/N</th>
               <th>Record</th>
               <th>Type</th>
-              <th>Location</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              <th>Status</th>
             </tr>
             <tr>
               <td>1</td>
               <td>
-                <a href="edit.html">
+                <a href="record.html">
                   <h3 class="tr-header">This is a Red Flag Report</h3>
                   <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.<br><span class="tb-date">04/02/17</span></p>
                 </a>
               </td>
               <td>Red Flag</td>
-              <td>Ikeja</td>
-              <td class="td-action"><a href="edit.html"><i class="fa fa-edit tb-edit"></i></a></td>
-              <td class="td-action"><i class="fa fa-trash tb-delete"></i></td>
+              <td>Under Investigation</td>
             </tr>
             <tr>
               <td>2</td>
               <td>
-                <a href="edit.html">
+                <a href="record.html">
                   <h3 class="tr-header">This is an Intervention Report</h3>
                   <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.<br><span class="tb-date">24/02/18</span></p>
                 </a>
               </td>
               <td>Intervention</td>
-              <td>Ikeja</td>
-              <td class="td-action"><a href="edit.html"><i class="fa fa-edit tb-edit"></i></a></td>
-              <td class="td-action"><i class="fa fa-trash tb-delete"></i></td>
+              <td>Draft</td>
             </tr>
             <tr>
               <td>3</td>
               <td>
-                <a href="edit.html">
+                <a href="record.html">
                   <h3 class="tr-header">This is an Intervention Report</h3>
                   <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.<br><span class="tb-date">15/12/17</span></p>
                 </a>
               </td>
               <td>Intervention</td>
-              <td>Ikeja</td>
-              <td class="td-action"><a href="edit.html"><i class="fa fa-edit tb-edit"></i></a></td>
-              <td class="td-action"><i class="fa fa-trash tb-delete"></i></td>
+              <td>Accepted</td>
             </tr>
           </table>
         </div>
@@ -125,7 +112,6 @@
     <p class="footer-para">All rights reserved &copy; 2018</p>
   </footer>
 
-
-  <script src="js/script.js"></script>
+  <script src="../js/script.js"></script>
 </body>
 </html>
