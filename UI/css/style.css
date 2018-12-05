@@ -229,7 +229,7 @@ hr {
 
 .main-works {
   text-align: center;
-  padding: 40px 20px 80px;
+  padding: 40px 0 80px;
 }
 
 .work-step {
@@ -243,16 +243,23 @@ hr {
   font-size: 45px;
 }
 
-.work-body {
-  background: #fff;
-}
-
 .work-body p {
   text-align: justify;
 }
 
-.div-bg {
-  background: rgba(0, 0, 255, 0.2);
+.how-card {
+  border: #000 solid 2px;
+  border-radius: 3px;
+  padding: 0 10px;
+  box-shadow: 5px 5px grey;
+}
+
+.card-bg {
+  background: #fff;
+}
+
+.card-bgMid {
+  background: #f1f2fc;
 }
 
 .media {
@@ -513,7 +520,7 @@ footer {
   }
 
   .main-works {
-    padding: 20px 20px 40px;
+    padding: 20px 0 40px;
   }
 
   img,
@@ -532,7 +539,7 @@ footer {
 
   .work-step {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
   }
 
   .db-sidenav {
