@@ -1,15 +1,14 @@
 import moment from 'moment';
 
-import uuid from 'uuid';
-
 class Redflag {
-  constructor() {
+  constructor(id = 0) {
     this.redflags = [];
+    this.id = id;
   }
 
   create(data) {
     const newRedflag = {
-      id: uuid.v4(),
+      id: this.id += 1,
       createdOn: moment.now(),
       createdBy: 127,
       type: 'Red-flag',
@@ -28,7 +27,7 @@ class Redflag {
   }
 
   findOne(id) {
-    return this.redflags.find(redflag => redflag.id === id);
+    return this.redflags.find(redflag => redflag.id === parseInt((id), 10));
   }
 
   update(id, data) {
