@@ -52,7 +52,7 @@ describe('POST /api/v1/red-flags', () => {
       .post('/api/v1/red-flags')
       .send({ location: '', comment: '' })
       .expect((res) => {
-        expect(res.body.message).toBe('Location and Message fields are required');
+        expect(res.body.message).toBe('Location and Comment fields are required');
       })
       .end(done);
   });

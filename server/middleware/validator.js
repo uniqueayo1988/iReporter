@@ -11,7 +11,7 @@ const Validator = {
     }
 
     if (!req.body.location && !req.body.comment) {
-      return res.status(400).send({ message: 'Location and Message fields are required' });
+      return res.status(400).send({ message: 'Location and Comment fields are required' });
     }
     return next();
   },
