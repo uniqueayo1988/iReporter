@@ -57,7 +57,7 @@ const Redflag = {
     const redflag = RedflagModel.findOne(req.params.id);
     RedflagModel.delete(req.params.id);
     return res.status(200).send({
-      status: 204,
+      status: 200,
       data: [{
         id: redflag.id,
         message: 'red-flag record has been deleted'

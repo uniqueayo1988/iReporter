@@ -9,7 +9,7 @@ class Redflag {
   create(data) {
     const newRedflag = {
       id: this.id += 1,
-      createdOn: moment.now(),
+      createdOn: moment().format('LLLL'),
       createdBy: 127,
       type: 'Red-flag',
       location: data.location,
@@ -27,7 +27,7 @@ class Redflag {
   }
 
   findOne(id) {
-    return this.redflags.find(redflag => redflag.id === parseInt((id), 10));
+    return this.redflags.find(redflag => redflag.id === Number(id));
   }
 
   update(id, data) {

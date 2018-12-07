@@ -123,7 +123,7 @@ describe('PATCH /api/v1/red-flags/:id/location', () => {
       .patch(`/api/v1/red-flags/${redflagRecord.id}/location`)
       .send(blankLocation)
       .expect((res) => {
-        expect(res.body.message).toBe('Field can not be blank');
+        expect(res.body.message).toBe('Location field is required');
       })
       .end(done);
   });
@@ -168,7 +168,7 @@ describe('PATCH /api/v1/red-flags/:id/comment', () => {
       .patch(`/api/v1/red-flags/${redflagRecord.id}/comment`)
       .send(blankComment)
       .expect((res) => {
-        expect(res.body.message).toBe('Field can not be blank');
+        expect(res.body.message).toBe('Comment field is required');
       })
       .end(done);
   });
@@ -199,5 +199,11 @@ describe('DELETE /api/v1/red-flags/:id', () => {
     request(app)
       .delete(`/api/v1/red-flags/${redflagRecord.id}1`)
       .expect(404, done);
+      // comment above
+      // .expect(404);
+      // .expect((res) => {
+      //   expect(res.body.data[0].message).toBe('Updated red-flag record\'s comment');
+      // })
+      // .end(done);
   });
 });
