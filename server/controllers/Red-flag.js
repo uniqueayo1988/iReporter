@@ -32,7 +32,7 @@ const Redflag = {
   update(req, res) {
     const redflag = RedflagModel.findOne(req.params.id);
     RedflagModel.update(req.params.id, req.body);
-    if (req.body.location) {
+    if (req.body.location && !req.body.comment) {
       return res.status(200).send({
         status: 200,
         data: [{
