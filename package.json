@@ -1,7 +1,7 @@
 {
   "name": "api-endpoints",
   "version": "1.0.0",
-  "description": "RESTful api to Power Fast-Food-Fast Application",
+  "description": "RESTful api to Power iReporter Application",
   "main": "server.js",
   "scripts": {
     "start": "npm run build && node ./build/server.js",
