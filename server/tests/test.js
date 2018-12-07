@@ -30,9 +30,9 @@ describe('POST /api/v1/red-flags', () => {
   it('should test response message if comment is blank', (done) => {
     request(app)
       .post('/api/v1/red-flags')
-      .send({ comment: '' })
+      .send({ comment: '', location: 'agege' })
       .expect((res) => {
-        expect(res.body.message).toBe('Location and comment fields are required');
+        expect(res.body.message).toBe('Comment field is required');
       })
       .end(done);
   });
@@ -40,9 +40,19 @@ describe('POST /api/v1/red-flags', () => {
   it('should test response message if location is blank', (done) => {
     request(app)
       .post('/api/v1/red-flags')
-      .send({ location: '' })
+      .send({ location: '', comment: 'a comment' })
       .expect((res) => {
-        expect(res.body.message).toBe('Location and comment fields are required');
+        expect(res.body.message).toBe('Location field is required');
+      })
+      .end(done);
+  });
+
+  it('should test response message if location and comment are blank', (done) => {
+    request(app)
+      .post('/api/v1/red-flags')
+      .send({ location: '', comment: '' })
+      .expect((res) => {
+        expect(res.body.message).toBe('Location and Message fields are required');
       })
       .end(done);
   });
@@ -101,7 +111,7 @@ describe('GET /api/v1/red-flags/:id', () => {
 describe('PATCH /api/v1/red-flags/:id/location', () => {
   it('should update a record location', (done) => {
     const location = {
-      location: 'london'
+      location: 'osapa'
     };
     request(app)
       .patch(`/api/v1/red-flags/${redflagRecord.id}/location`)
@@ -123,7 +133,7 @@ describe('PATCH /api/v1/red-flags/:id/location', () => {
       .patch(`/api/v1/red-flags/${redflagRecord.id}/location`)
       .send(blankLocation)
       .expect((res) => {
-        expect(res.body.message).toBe('Field can not be blank');
+        expect(res.body.message).toBe('Location field is required');
       })
       .end(done);
   });
@@ -168,7 +178,7 @@ describe('PATCH /api/v1/red-flags/:id/comment', () => {
       .patch(`/api/v1/red-flags/${redflagRecord.id}/comment`)
       .send(blankComment)
       .expect((res) => {
-        expect(res.body.message).toBe('Field can not be blank');
+        expect(res.body.message).toBe('Comment field is required');
       })
       .end(done);
   });
@@ -198,6 +208,12 @@ describe('DELETE /api/v1/red-flags/:id', () => {
   it('should test for invalid record id', (done) => {
     request(app)
       .delete(`/api/v1/red-flags/${redflagRecord.id}1`)
-      .expect(404, done);
+      // .expect(404, done);
+      // comment above
+      .expect(404)
+      .expect((res) => {
+        expect(res.body.message).toBe('Red-flag record not found');
+      })
+      .end(done);
   });
 });
