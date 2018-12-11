@@ -1,8 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-// credit: https://www.codementor.io/olawalealadeusi896/building-a-simple-api-with-nodejs-expressjs-postgresql-db-and-jwt-3-mke10c5c5
-
 const Helper = {
   /**
    * Hash Password Method
@@ -10,7 +8,7 @@ const Helper = {
    * @returns {string} return hashed password
    */
   hashPassword(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   },
 
   /**
@@ -47,6 +45,9 @@ const Helper = {
     });
     return token;
   }
-}
+};
 
 export default Helper;
+
+// credit: https://www.codementor.io/olawalealadeusi896/building-a-simple-api-with-nodejs-expressjs-postgresql-db-and-jwt-3-mke10c5c5
+
