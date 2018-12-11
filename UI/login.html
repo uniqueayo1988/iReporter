@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name= "viewport" content= "width=device-width, initial-scale=1.0">
+  <title>iReporter</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="nav-header">
+        <div class="logo">
+          <a href="#"><span class="logo-i">i</span>REPORTER</a>
+        </div>
+
+        <div class="">
+          <ul class="nav-menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#how" class="work-menu">How it works</a></li>
+            <li><a href="index.html"><button class="menu-btn">Register</button></a></li>
+          </ul>
+
+          <!-- <div class="nav-icon" onclick= menu();> -->
+          <div class="nav-icon" onclick="openNav()";>
+            <span class="navs">&#9776</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Home</a>
+        <a href="#how">How it works</a>
+        <a href="index.html"><button class="menu-btn">Register</button></a>
+      </div>
+    </nav>
+
+    <!-- Header content and registeration form -->
+    <div class="header-content" >
+      <div class="left-content">
+        <h1>Report corruption and issues that need government intervention.</h1>
+        <p class="content-para">Let's curb corruption to aid economic development.</p>
+      </div>
+      <div class="right-content">
+        <h2 class="form-header">Be an iReporter</h2>
+        <form action="">
+          <label for="" class="form-info">*Your information will be treated with utmost confidentiality!</label>
+          <input type="email" required placeholder="EMAIL">
+          <input type="password" required placeholder="PASSWORD">
+          <input type="submit" value="LOGIN" id="btn">
+        </form>
+
+        <div class="register-link">
+          <span class="form-info">Not registered?</span><br><a href="index.html#register">REGISTER HERE</a>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- How it works -->
+    <section class="main-works" id="how">
+      <h2>HOW IT WORKS</h2><hr>
+      <p>Have you sighted an incidence that needs to be reported?</p>
+
+      <div class="work-body">
+        <div class="work-step">
+          <div class="how-card card-bg">
+            <h3 class="subheader-how">Register as a user<br><span class="work-icon"><i class="fa fa-user"></i></span></h3>
+            <p>Fill the form to register as an iReporter and have access to your dashboard. Or login to your dashboard if you are already registered.</p>
+          </div>
+        </div>
+        <div class="work-step">
+          <div class="how-card card-bgMid">
+            <h3 class="subheader-how" style="">Send Red flag or Intervention report<br><span class="work-icon"><i class="fa fa-send-o"></i></span></h3>
+            <p>Write a report on an incident linked to corruption (Red-flag) or a call for a government agency to intervene e.g flooding, inferno etc</p>
+          </div>
+        </div>
+        <div class="work-step">
+          <div class="how-card card-bg">
+            <h3 class="subheader-how">Report is investigated and resolved<br><span class="work-icon"><i class="fa fa-check-square-o"></i></span></h3>
+            <p>Once your report is submitted, immediate action is taken to investigate and authenticate your report before it is finally resolved.</p>
+          </div>
+        </div>
+
+        <div class="clear"></div>
+      </div>
+    </section>
+
+    <!-- Media - image/video -->
+    <section class="media">
+      <div class="img">
+        <h3>Send us red-flag report images</h3>
+        <img src="img/fraud.jpg" alt="red-flag">
+      </div>
+      <div class="vdo">
+        <h3>Intervention report video</h3>
+        <iframe width="853" height="480" src="https://www.youtube.com/embed/8jJ3lsy44Lg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div class="clear"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="logo">
+      <a href="#"><span class="logo-i">i</span>REPORTER</a>
+    </div>
+    <p class="footer-para">All rights reserved &copy; 2018</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    btn.onclick = () => location.href = 'profile.html';
+  </script>
+</body>
+</html>

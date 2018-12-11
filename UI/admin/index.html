@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name= "viewport" content= "width=device-width, initial-scale=1.0">
+  <title>iReporter</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="db-body">
+  <header>
+    <nav>
+      <div class="nav-header">
+        <div class="logo">
+          <a href="#"><span class="logo-i">i</span>REPORTER</a>
+        </div>
+
+        <div class="">
+          <ul class="nav-menu">
+            <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
+          </ul>
+
+          <div class="nav-icon" onclick="openNav()";>
+            <span class="navs">&#9776</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <h2 class="user-name">Admin</h2>
+        <a href="#">Home</a>
+        <a href="all-records.html">User Records</a>
+        <a href="../index.html"><button class="menu-btn">Logout</button></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="db-sidenav">
+      <section>
+        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>Admin</h2>
+        <ul>
+          <li class="nav-list"><a href="#"><i class="fa fa-home"></i>Home</a></li>
+          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>User Records</a></li>
+          <li class="nav-list"><a href="../index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="main-div">
+      <h1 class="db-header">ADMIN DASHBOARD</h1><hr>
+
+      <section class="db-table">
+        <h2 class="table-header">Draft Records</h2>
+
+        <div style="overflow-x:auto;">
+          <table>
+            <tr class="tr-header">
+              <th>Record</th>
+              <th>Location</th>
+              <th>Type</th>
+              <th>Status</th>
+            </tr>
+            <tr>
+              <td>
+                <a href="record.html">
+                  <h3 class="tr-header">This is a Red Flag Report</h3>
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.<br><span class="tb-date">04/02/17 by John Doe</span></p>
+                </a>
+              </td>
+              <td>12345</td>
+              <td>Red Flag</td>
+              <td>
+                <select name="" id="">
+                  <option value="Draft">Draft</option>
+                  <option value="Accepted">Accepted</option>
+                  <option value="Under Investigation">Under Investigation</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="record.html">
+                  <h3 class="tr-header">This is an Intervention Report</h3>
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.<br><span class="tb-date">24/02/18 by Dotun Dipe</span></p>
+                </a>
+              </td>
+              <td>12451</td>
+              <td>Intervention</td>
+              <td>
+                <select name="" id="">
+                  <option value="Draft">Draft</option>
+                  <option value="Accepted">Accepted</option>
+                  <option value="Under Investigation">Under Investigation</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="record.html">
+                  <h3 class="tr-header">This is an Intervention Report</h3>
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.<br><span class="tb-date">15/12/17 by James Saga</span></p>
+                </a>
+              </td>
+              <td>12345</td>
+              <td>Intervention</td>
+              <td>
+                <select name="" id="">
+                  <option value="Draft">Draft</option>
+                  <option value="Accepted">Accepted</option>
+                  <option value="Under Investigation">Under Investigation</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </section>
+
+    </div>
+
+    <div class="clear"></div>
+  </main>
+
+  <footer>
+    <div class="logo">
+      <a href="#"><span class="logo-i">i</span>REPORTER</a>
+    </div>
+    <p class="footer-para">All rights reserved &copy; 2018</p>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
