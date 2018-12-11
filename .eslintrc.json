@@ -1,14 +1,16 @@
 {
-	"extends": "airbnb-base",
+  "extends": "airbnb-base",
 
-	"rules": {
-		"linebreak-style": [
+  "rules": {
+    "linebreak-style": [
             "error",
-            "windows"
+            "unix"
         ],
         "comma-dangle": [
-			"error",
-			"never"
-		]
-	}
+      "error",
+      "never"
+    ],
+    "no-console": 0,
+    "import/no-unresolved": "off"
+  }
 }
