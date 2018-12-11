@@ -1,6 +1,6 @@
 import moment from 'moment';
 import db from '../db';
-// import Helper from './Helper';
+import Helper from '../middleware/Helper';
 
 const User = {
   /**
@@ -10,6 +10,11 @@ const User = {
    * @returns {object} user object
    */
   async create(req, res) {
+    if (!Helper.isValidEmail(req.body.email)) {
+      return res.status(400).send({ 'message': 'Please enter a valid email address' });
+    }
+    const hashPassword = Helper.hashPassword(req.body.password);
+
     const createQuery = `INSERT INTO
       users(firstname, lastname, othernames, email, phoneNumber, username, registered, password)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)
@@ -22,16 +27,17 @@ const User = {
       req.body.phoneNumber,
       req.body.username,
       moment().format('LLLL'),
-      // hashPassword
-      req.body.password
+      hashPassword
     ];
 
     try {
       const { rows } = await db.query(createQuery, values);
       const userDetails = rows[0];
+      const token = Helper.generateToken(rows[0].id);
       return res.status(201).send({
         status: 201,
         data: [{
+          token,
           user: userDetails
         }]
       });
