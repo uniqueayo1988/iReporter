@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import 'babel-polyfill';
 import userRoutes from './routers/userRouter';
 import interventionRoutes from './routers/interventionRouter';
+import redFlagRoutes from './routers/redFlagRouter';
 
 dotenv.config();
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', interventionRoutes);
+app.use('/api/v1', redFlagRoutes);
 
 app.listen(port, () => {
   console.log(`Server now started at port ${port}`);

@@ -10,5 +10,6 @@ router.get('/interventions', Auth.verifyToken, Intervention.getAll);
 router.get('/interventions/:id', Auth.verifyToken, Intervention.getOne);
 router.patch('/interventions/:id/location', Auth.verifyToken, Intervention.updateLocation);
 router.patch('/interventions/:id/comment', Auth.verifyToken, Intervention.updateComment);
+router.delete('/interventions/:id', Auth.verifyToken, Intervention.delete);
 
 export default router;
