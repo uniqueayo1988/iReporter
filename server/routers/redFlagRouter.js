@@ -5,6 +5,7 @@ import Auth from '../middleware/auth';
 
 const router = express.Router();
 
-router.post('/interventions', Auth.verifyToken, redFlag.create);
+router.post('/red-flags', Auth.verifyToken, redFlag.create);
+router.get('/red-flags', Auth.verifyToken, redFlag.getAll);
 
 export default router;
