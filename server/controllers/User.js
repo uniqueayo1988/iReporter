@@ -1,4 +1,3 @@
-import moment from 'moment';
 import db from '../db';
 import Helper from '../middleware/Helper';
 
@@ -13,7 +12,8 @@ const User = {
     if (!Helper.isValidEmail(req.body.email)) {
       return res.status(400).send({
         status: 400,
-        message: 'Please enter a valid email address' });
+        message: 'Please enter a valid email address'
+      });
     }
     const hashPassword = Helper.hashPassword(req.body.password);
 
@@ -21,6 +21,7 @@ const User = {
       users(firstname, lastname, othernames, email, phoneNumber, username, registered, password)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       returning *`;
+    const thisDay = new Date();
     const values = [
       req.body.firstname,
       req.body.lastname,
@@ -28,26 +29,37 @@ const User = {
       req.body.email,
       req.body.phoneNumber,
       req.body.username,
-      moment().format('LLLL'),
+      thisDay,
       hashPassword
     ];
 
     try {
       const { rows } = await db.query(createQuery, values);
-      const userDetails = rows[0];
+      const firstName = rows[0].firstname;
+      const lastName = rows[0].lastname;
+      const Email = rows[0].email;
+      const phonenumber = rows[0].phoneNumber;
+      const Username = rows[0].username;
       const token = Helper.generateToken(rows[0].id);
       return res.status(201).send({
         status: 201,
         data: [{
           token,
-          user: userDetails
+          user: {
+            firstName,
+            lastName,
+            Email,
+            phonenumber,
+            Username
+          }
         }]
       });
-    } catch(error) {
+    } catch (error) {
       if (error.routine === '_bt_check_unique') {
         return res.status(404).send({
           status: 404,
-          message: 'User with that EMAIL already exist' });
+          message: 'User with that EMAIL already exist'
+        });
       }
       return res.status(400).send(error);
     }
@@ -61,7 +73,10 @@ const User = {
    */
   async login(req, res) {
     if (!Helper.isValidEmail(req.body.email)) {
-      return res.status(400).send({ 'message': 'Please enter a valid email address' });
+      return res.status(400).send({
+        status: 400,
+        message: 'Please enter a valid email address'
+      });
     }
     const text = 'SELECT * FROM users WHERE email = $1';
     try {
@@ -81,16 +96,26 @@ const User = {
         );
       }
       const token = Helper.generateToken(rows[0].id);
-      const userDetails = rows[0];
+      const firstName = rows[0].firstname;
+      const lastName = rows[0].lastname;
+      const Email = rows[0].email;
+      const phonenumber = rows[0].phoneNumber;
+      const Username = rows[0].username;
       return res.status(200).send({
         status: 200,
         data: [{
           token,
-          user: userDetails
+          user: {
+            firstName,
+            lastName,
+            Email,
+            phonenumber,
+            Username
+          }
         }]
       });
     } catch (error) {
-      return res.status(400).send(error)
+      return res.status(400).send(error);
     }
   }
 

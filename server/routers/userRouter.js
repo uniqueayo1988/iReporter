@@ -1,5 +1,5 @@
 import express from 'express';
-import User from '../controllers/User';
+import User from '../controllers/user';
 import 'babel-polyfill';
 
 const router = express.Router();
