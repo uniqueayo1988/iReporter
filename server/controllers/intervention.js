@@ -114,7 +114,10 @@ const Intervention = {
       const updatedLocation = response.rows[0];
       return res.status(200).send({
         status: 200,
-        data: [updatedLocation]
+        data: [{
+          updatedLocation,
+          message: 'Updated Intervention record\'s location'
+        }]
       });
     } catch (err) {
       return res.status(400).send(err);
@@ -143,10 +146,36 @@ const Intervention = {
       const updatedComment = response.rows[0];
       return res.status(200).send({
         status: 200,
-        data: [updatedComment]
+        data: [{
+          updatedComment,
+          message: 'Updated Intervention record\'s comment'
+        }]
       });
     } catch (err) {
       return res.status(400).send(err);
+    }
+  },
+
+  async delete(req, res) {
+    const deleteQuery = `DELETE FROM incidents WHERE id=$1 AND createdBy = $2 AND type = 'intervention' returning *`;
+    try {
+      const { rows } = await db.query(deleteQuery, [req.params.id, req.user.id]);
+      const deletedRecord = rows[0];
+      if (!rows[0]) {
+        return res.status(404).send({
+          status: 404,
+          message: 'Incident record not found'
+        });
+      }
+      return res.status(200).send({
+        status: 200,
+        data: [{
+          deletedRecord,
+          message: 'Intervention record has been deleted'
+        }]
+      });
+    } catch (error) {
+      return res.status(400).send(error);
     }
   }
 
