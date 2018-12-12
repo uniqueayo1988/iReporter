@@ -111,7 +111,40 @@ const Intervention = {
         req.user.id
       ];
       const response = await db.query(updateLocationQuery, values);
-      return res.status(200).send(response.rows[0]);
+      const updatedLocation = response.rows[0];
+      return res.status(200).send({
+        status: 200,
+        data: [updatedLocation]
+      });
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  },
+
+  async updateComment(req, res) {
+    const findOneQuery = `SELECT * FROM incidents WHERE id=$1 AND createdBy = $2 AND type = 'intervention'`;
+    const updateCommentQuery = `UPDATE incidents
+      SET comment=$1
+      WHERE id=$2 AND createdBy = $3 returning *`;
+    try {
+      const { rows } = await db.query(findOneQuery, [req.params.id, req.user.id]);
+      if (!rows[0]) {
+        return res.status(404).send({
+          status: 404,
+          message: 'Comment record not found'
+        });
+      }
+      const values = [
+        req.body.comment || rows[0].comment,
+        req.params.id,
+        req.user.id
+      ];
+      const response = await db.query(updateCommentQuery, values);
+      const updatedComment = response.rows[0];
+      return res.status(200).send({
+        status: 200,
+        data: [updatedComment]
+      });
     } catch (err) {
       return res.status(400).send(err);
     }
