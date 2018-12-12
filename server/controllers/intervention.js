@@ -10,7 +10,7 @@ const Intervention = {
     const thisDay = new Date();
     const values = [
       thisDay,
-      8,
+      req.user.id,
       req.body.type,
       req.body.location,
       req.body.image,
@@ -20,7 +20,29 @@ const Intervention = {
 
     try {
       const { rows } = await db.query(createQuery, values);
-      return res.status(201).send(rows[0]);
+      const recordDetails = rows[0];
+      const Id = recordDetails.id;
+      return res.status(201).send({
+        status: 201,
+        data: [{
+          id: Id,
+          message: 'Created Intervention record'
+        }]
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
+  async getAll(req, res) {
+    const getAllQuery = 'SELECT * FROM incidents WHERE createdBy = $1';
+    try {
+      const { rows } = await db.query(getAllQuery, [req.user.id]);
+      const data = rows;
+      return res.status(200).send({
+        status: 200,
+        data
+      });
     } catch (error) {
       return res.status(400).send(error);
     }
