@@ -16,8 +16,7 @@ pool.on('connect', () => {
  * Create Incident Table
  */
 const createIncidentTable = () => {
-  const queryText =
-    `CREATE TABLE IF NOT EXISTS
+  const queryText = `CREATE TABLE IF NOT EXISTS
       incidents(
         id SERIAL PRIMARY KEY,
         createdOn TIMESTAMP NOT NULL,
@@ -45,8 +44,7 @@ const createIncidentTable = () => {
  * Create User Table
  */
 const createUserTable = () => {
-  const queryText =
-    `CREATE TABLE IF NOT EXISTS
+  const queryText = `CREATE TABLE IF NOT EXISTS
       users(
         id SERIAL PRIMARY KEY,
         firstname VARCHAR(100) NOT NULL,
