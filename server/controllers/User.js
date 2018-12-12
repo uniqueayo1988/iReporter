@@ -1,5 +1,5 @@
 import db from '../db';
-import Helper from '../middleware/Helper';
+import Helper from '../middleware/helper';
 
 const User = {
   /**
@@ -23,12 +23,12 @@ const User = {
       returning *`;
     const thisDay = new Date();
     const values = [
-      req.body.firstname,
-      req.body.lastname,
-      req.body.othernames,
-      req.body.email,
-      req.body.phoneNumber,
-      req.body.username,
+      req.body.firstname.trim(),
+      req.body.lastname.trim(),
+      req.body.othernames.trim(),
+      req.body.email.trim(),
+      req.body.phoneNumber.trim(),
+      req.body.username.trim(),
       thisDay,
       hashPassword
     ];
