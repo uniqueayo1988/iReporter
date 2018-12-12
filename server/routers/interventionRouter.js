@@ -8,5 +8,6 @@ const router = express.Router();
 router.post('/interventions', Auth.verifyToken, Intervention.create);
 router.get('/interventions', Auth.verifyToken, Intervention.getAll);
 router.get('/interventions/:id', Auth.verifyToken, Intervention.getOne);
+router.patch('/interventions/:id/location', Auth.verifyToken, Intervention.updateLocation);
 
 export default router;
