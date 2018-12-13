@@ -156,6 +156,37 @@ const Redflag = {
     }
   },
 
+  async updateStatus(req, res) {
+    const findOneQuery = `SELECT * FROM incidents WHERE id=$1 AND type = 'redFlag'`;
+    const updateStatusQuery = `UPDATE incidents
+      SET status=$1
+      WHERE id=$2 returning *`;
+    try {
+      const { rows } = await db.query(findOneQuery, [req.params.id]);
+      if (!rows[0]) {
+        return res.status(404).send({
+          status: 404,
+          message: 'Status not found'
+        });
+      }
+      const values = [
+        req.body.status || rows[0].status,
+        req.params.id
+      ];
+      const response = await db.query(updateStatusQuery, values);
+      const updatedStatus = response.rows[0].id;
+      return res.status(200).send({
+        status: 200,
+        data: [{
+          updatedStatus,
+          message: 'Updated Red-flag record status'
+        }]
+      });
+    } catch (err) {
+      return res.status(400).send(err);
+    }
+  },
+
   async delete(req, res) {
     const deleteQuery = `DELETE FROM incidents WHERE id=$1 AND createdBy = $2 AND type = 'redFlag' returning *`;
     try {

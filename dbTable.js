@@ -58,7 +58,35 @@ const createUserTable = () => {
         password VARCHAR(128) NOT NULL
       )`;
 
-  return pool.query(queryText)
+  return pool.query(queryText);
+};
+
+const adminUser = () => {
+  const createQuery = `INSERT INTO
+    users(firstname, lastname, othernames, email, phoneNumber, username, registered, isAdmin, password)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    returning *`;
+  const thisDay = new Date();
+  const values = [
+    'Ayo',
+    'Bayo',
+    'Giwa',
+    'ayo@andela.com',
+    '08055353514',
+    'ayo',
+    thisDay,
+    true,
+    'admin'
+  ];
+  pool.query(createQuery, values)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
 };
 
 /**
@@ -121,7 +149,8 @@ module.exports = {
   createAllTables,
   dropIncidentTable,
   dropUserTable,
-  dropAllTables
+  dropAllTables,
+  adminUser
 };
 
 require('make-runnable');
