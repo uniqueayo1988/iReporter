@@ -58,15 +58,7 @@ const createUserTable = () => {
         password VARCHAR(128) NOT NULL
       )`;
 
-  pool.query(queryText)
-    .then((res) => {
-      console.log(res);
-      pool.end();
-    })
-    .catch((err) => {
-      console.log(err);
-      pool.end();
-    });
+  return pool.query(queryText)
 };
 
 /**
@@ -105,8 +97,14 @@ const dropUserTable = () => {
  * Create All Tables
  */
 const createAllTables = () => {
-  createUserTable();
-  createIncidentTable();
+  createUserTable()
+    .then((res) => {
+      createIncidentTable();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
 };
 
 /**
