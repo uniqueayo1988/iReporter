@@ -4,8 +4,8 @@
   "description": "RESTful api to Power iReporter Application",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build && node ./build/server.js",
-    "test": "nyc mocha --require babel-register server/tests/test.js --exit",
+    "start": "npm run build && node ./build/server.js && node dbTable createAllTables",
+    "test": "nyc mocha --require babel-register server/tests/iReporterTest.js --exit",
     "test-watch": "nodemon --exec  \"npm test\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel server --out-dir build",
