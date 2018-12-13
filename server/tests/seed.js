@@ -71,6 +71,13 @@ const Seed = {
     email: 'adeb@.com',
     phoneNumber: '0808080',
     username: 'adesegun'
+  },
+
+  redflag: {
+    title: 'water',
+    location: 'coke',
+    image: 'pix.jpg',
+    comment: 'hello how are'
   }
 
 };
