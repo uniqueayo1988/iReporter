@@ -4,16 +4,6 @@ import Seed from './seed';
 import db from '../db';
 import app from '../server';
 
-// const userDetails = {
-//   firstname: 'ade',
-//   lastname: 'segun',
-//   othernames: 'olude',
-//   email: 'adeb@gmail.com',
-//   phoneNumber: '0808080',
-//   username: 'adesegun',
-//   password: 'adeb'
-// };
-
 before(async () => {
   const users = 'DELETE FROM users';
   await db.query(users);

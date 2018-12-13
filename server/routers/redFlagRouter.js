@@ -11,6 +11,7 @@ router.get('/red-flags', Auth.verifyToken, Redflag.getAll);
 router.get('/red-flags/:id', Validator.getOne, Auth.verifyToken, Redflag.getOne);
 router.patch('/red-flags/:id/location', Validator.getOne, Validator.updateLocation, Auth.verifyToken, Redflag.updateLocation);
 router.patch('/red-flags/:id/comment', Validator.getOne, Validator.updateComment, Auth.verifyToken, Redflag.updateComment);
+router.patch('/red-flags/:id/status', Validator.getOne, Validator.isAdmin, Auth.verifyToken, Redflag.updateStatus);
 router.delete('/red-flags/:id', Validator.getOne, Auth.verifyToken, Redflag.delete);
 
 export default router;
