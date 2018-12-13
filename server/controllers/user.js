@@ -9,12 +9,6 @@ const User = {
    * @returns {object} user object
    */
   async signup(req, res) {
-    if (!Helper.isValidEmail(req.body.email)) {
-      return res.status(400).send({
-        status: 400,
-        message: 'Please enter a valid email address'
-      });
-    }
     const hashPassword = Helper.hashPassword(req.body.password);
 
     const createQuery = `INSERT INTO
@@ -72,12 +66,6 @@ const User = {
    * @returns {object} user object
    */
   async login(req, res) {
-    if (!Helper.isValidEmail(req.body.email)) {
-      return res.status(400).send({
-        status: 400,
-        message: 'Please enter a valid email address'
-      });
-    }
     const text = 'SELECT * FROM users WHERE email = $1';
     try {
       const { rows } = await db.query(text, [req.body.email]);
