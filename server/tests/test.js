@@ -1,6 +1,6 @@
 import expect from 'expect';
 import request from 'supertest';
-import RedflagModel from '../models/Red-flag';
+// import RedflagModel from '../models/Red-flag';
 import app from '../server';
 
 const redflag = {
@@ -9,6 +9,8 @@ const redflag = {
   image: 'pix.jpg',
   comment: 'hello how are'
 };
+
+
 
 const redflagRecord = RedflagModel.create(redflag);
 
@@ -19,6 +21,7 @@ describe('POST /api/v1/red-flags', () => {
       .post('/api/v1/red-flags')
       .send(redflag)
       .set('Accept', 'application/json')
+      // .set('x-access-token', varName)
       .expect(201)
       .expect((res) => {
         expect(res.body.data[0].message).toBe('Created red-flag record');

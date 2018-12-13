@@ -20,8 +20,8 @@ const Redflag = {
       req.body.type,
       req.body.location,
       req.body.image,
-      req.body.title,
-      req.body.comment
+      req.body.title.trim(),
+      req.body.comment.trim()
     ];
 
     try {
@@ -138,7 +138,7 @@ const Redflag = {
         });
       }
       const values = [
-        req.body.comment || rows[0].comment,
+        req.body.comment.trim() || rows[0].comment,
         req.params.id,
         req.user.id
       ];

@@ -1,10 +1,11 @@
 import express from 'express';
 import User from '../controllers/user';
 import 'babel-polyfill';
+import Validator from '../middleware/validator';
 
 const router = express.Router();
 
-router.post('/auth/signup', User.signup);
-router.post('/auth/login', User.login);
+router.post('/auth/signup', Validator.signUp, Validator.isValidEmail, User.signup);
+router.post('/auth/login', Validator.isValidEmail, User.login);
 
 export default router;
