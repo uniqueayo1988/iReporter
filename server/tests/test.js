@@ -197,6 +197,27 @@ describe('PATCH /api/v1/red-flags/:id/comment', () => {
   });
 });
 
+// Test for 'Delete /api/v1/:id/red-flags/' endpoint
+describe('DELETE /api/v1/red-flags/:id', () => {
+  it('should delete a red-flag record', (done) => {
+    request(app)
+      .delete(`/api/v1/${redflagRecord.id}/red-flags/`)
+      .expect(200, done);
+  });
+
+  it('should test for invalid record id', (done) => {
+    request(app)
+      .delete(`/api/v1/${redflagRecord.id}1/red-flags/`)
+      // .expect(404, done);
+      // comment above
+      .expect(404)
+      .expect((res) => {
+        expect(res.body.message).toBe('Red-flag record not found');
+      })
+      .end(done);
+  });
+});
+
 // Test for 'Delete /api/v1/red-flags/:id' endpoint
 describe('DELETE /api/v1/red-flags/:id', () => {
   it('should delete a red-flag record', (done) => {
