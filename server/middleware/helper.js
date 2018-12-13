@@ -22,15 +22,6 @@ const Helper = {
   },
 
   /**
-   * isValidEmail helper method
-   * @param {string} email
-   * @returns {Boolean} True or False
-   */
-  isValidEmail(email) {
-    // Email Validation - Cdt: Stackoverflow
-    return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(email);
-  },
-  /**
    * Gnerate Token
    * @param {string} id
    * @returns {string} token
