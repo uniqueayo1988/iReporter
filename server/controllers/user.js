@@ -70,16 +70,16 @@ const User = {
     try {
       const { rows } = await db.query(text, [req.body.email]);
       if (!rows[0]) {
-        return res.status(404).send({
-          status: 404,
-          message: 'The Email provided is not in our records'
+        return res.status(401).send({
+          status: 401,
+          message: 'Invalid Login Credentials'
         });
       }
       if (!Helper.comparePassword(rows[0].password, req.body.password)) {
         return res.status(400).send(
           {
             status: 400,
-            message: 'Your password is incorrect'
+            message: 'Invalid Login Credentials'
           }
         );
       }
