@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import 'babel-polyfill';
 import userRoutes from './routers/userRouter';
+import cors from 'cors';
 import interventionRoutes from './routers/interventionRouter';
 import redFlagRoutes from './routers/redFlagRouter';
 
@@ -10,6 +11,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', interventionRoutes);
