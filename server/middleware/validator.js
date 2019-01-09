@@ -65,6 +65,21 @@ const Validator = {
     return next();
   },
 
+  userLogin(req, res, next) {
+    if (!req.body.email && req.body.password) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    if (!req.body.password && req.body.email) {
+      return res.status(400).json({ message: 'Password is required' });
+    }
+
+    if (!req.body.email && !req.body.password) {
+      return res.status(400).json({ message: 'Please, enter email and password' });
+    }
+    return next();
+  },
+
   isValidEmail(req, res, next) {
     const isEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(req.body.email);
     if (!isEmail) {
