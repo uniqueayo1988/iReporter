@@ -45,13 +45,13 @@
       </div>
       <div class="right-content">
         <h2 class="form-header">Be an iReporter</h2>
-        <!-- <form action=""> -->
-          <div id="message"></div>
+        <form action="">
           <label for="" class="form-info">*Your information will be treated with utmost confidentiality!</label>
           <input type="email" required placeholder="EMAIL" id="email">
           <input type="password" required placeholder="PASSWORD" id="password">
+          <div id="error"></div>
           <input type="submit" value="LOGIN" id="btn">
-        <!-- </form> -->
+        </form>
 
         <div class="register-link">
           <span class="form-info">Not registered?</span><br><a href="index.html#register">REGISTER HERE</a>
@@ -117,12 +117,15 @@
 
   <script src="js/script.js"></script>
   <script>
-    btn.onclick = () => {
-      let email = document.getElementById('email').value;
-      console.log(email);
-      let password = document.getElementById('password').value;
-      console.log(password);
-      let myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/auth/login');
+    btn.onclick = (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const error = document.getElementById('error');
+      error.className = 'errMsg';
+
+      const myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/auth/login');
+
       fetch(myRequest, {
         headers: {'Content-Type': 'application/json'},
         method: 'POST',
@@ -131,20 +134,15 @@
           password: password
         })
       })
-      .then(function(response){
+      .then(response => {
         if(response.ok){
           location.href = 'profile.html';
         }
 
-        return response;
+        return response.json();
       })
-      .then(function(response){
-        let res = response.json();
-        let message = document.getElementById('message');
-        message.textContent = res;
-      })
-      .catch(function(err){
-        console.log(err);
+      .then(data => {
+        error.textContent = data.message;
       })
     };
 

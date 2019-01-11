@@ -44,19 +44,19 @@
       </div>
       <div class="right-content" id="register">
         <h2 class="form-header">Be an iReporter</h2>
-        <!-- <form action=""> -->
+        <form action="">
           <label for="" class="form-info">*Your information will be treated with utmost confidentiality!</label>
           <input type="text" required placeholder="FIRST NAME" id="firstname">
           <input type="text" required placeholder="LAST NAME" id="lastname">
           <input type="text" required placeholder="OTHER NAMES" id="othernames">
           <input type="email" required placeholder="EMAIL" id="email">
-          <input type="text" required placeholder="TELEPHONE" id="phonenumber">
+          <input type="text" required placeholder="TELEPHONE" id="phoneNumber">
           <input type="text" required placeholder="USERNAME" id="username">
           <input type="password" required placeholder="PASSWORD" id="password">
           <input type="password" required placeholder="CONFIRM PASSWORD" id="confirmPassword">
-          <div id="err"></div>
+          <div id="error"></div>
           <input type="submit" value="PROCEED" id="btn">
-        <!-- </form> -->
+        </form>
       </div>
 
       <div class="clear"></div>
@@ -118,50 +118,51 @@
 
   <script src="js/script.js"></script>
   <script>
-    btn.onclick = () => {
-      let firstname = document.getElementById('firstname').value;
-      let lastname = document.getElementById('lastname').value;
-      let othernames = document.getElementById('othernames').value;
-      let email = document.getElementById('email').value;
-      let phonenumber = document.getElementById('phonenumber').value;
-      let username = document.getElementById('username').value;
-      let password = document.getElementById('password').value;
-      let confirmPassword = document.getElementById('confirmPassword').value;
-      let err = document.getElementById('err');
-      let myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/auth/signup');
+    btn.onclick = (e) => {
+      e.preventDefault();
+      const firstname = document.getElementById('firstname').value;
+      const lastname = document.getElementById('lastname').value;
+      const othernames = document.getElementById('othernames').value;
+      const email = document.getElementById('email').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const error = document.getElementById('error');
+      error.className = 'errMsg';
 
-      if(confirmPassword !== password) {
-        err.textContent = 'You have entered different passwords'
-      }
+      const myRequest = new Request('http://localhost:3000/api/v1/auth/signup');
 
-      fetch(myRequest, {
-        headers: {'Content-Type': 'application/json'},
-        method: 'POST',
-        body: JSON.stringify({
-          firstname: firstname,
-          lastname: lastname,
-          othernames: othernames,
-          email: email,
-          phonenumber: phonenumber,
-          username: username,
-          password: password
+      if(confirmPassword === password) {
+        fetch(myRequest, {
+          headers: {'Content-Type': 'application/json'},
+          method: 'POST',
+          body: JSON.stringify({
+            firstname: firstname,
+            lastname: lastname,
+            othernames: othernames,
+            email: email,
+            phoneNumber: phoneNumber,
+            username: username,
+            password: password
+          })
         })
-      })
-      .then(function(response){
-        if(response.ok){
-          location.href = 'profile.html';
-        }
+        .then(response => {
+          if(response.ok){
+            location.href = 'profile.html';
+          }
 
-        return response;
-      })
-      .then(function(response){
-        let res = response.json();
-
-        message.textContent = res;
-      })
-      .catch(function(err){
-        console.log(err);
-      })
+          return response.json();
+        })
+        .then(data => {
+          error.textContent = data.message;
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+      } else {
+        error.textContent = 'You have entered different passwords'
+      }
     };
 
   </script>

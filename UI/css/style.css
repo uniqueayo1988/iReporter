@@ -167,6 +167,14 @@ form {
   margin: 0 10%;
 }
 
+.errMsg {
+  background: red;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .form-info {
   font-style: italic;
   color: rgba(255, 0, 0, 0.4);
