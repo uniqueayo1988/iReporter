@@ -3,10 +3,11 @@ import Redflag from '../controllers/redFlag';
 import 'babel-polyfill';
 import Auth from '../middleware/auth';
 import Validator from '../middleware/validator';
+import Upload from '../middleware/upload';
 
 const router = express.Router();
 
-router.post('/red-flags', Validator.create, Auth.verifyToken, Redflag.create);
+router.post('/red-flags', Upload.single('image'), Validator.create, Auth.verifyToken, Redflag.create);
 router.get('/red-flags', Auth.verifyToken, Redflag.getAll);
 router.get('/red-flags/:id', Validator.getOne, Auth.verifyToken, Redflag.getOne);
 router.patch('/red-flags/:id/location', Validator.getOne, Validator.updateLocation, Auth.verifyToken, Redflag.updateLocation);

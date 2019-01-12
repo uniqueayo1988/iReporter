@@ -19,7 +19,7 @@ const Intervention = {
       req.user.id,
       req.body.type,
       req.body.location,
-      req.body.image,
+      req.file.path,
       req.body.title,
       req.body.comment
     ];
