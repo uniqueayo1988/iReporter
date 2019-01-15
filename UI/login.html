@@ -49,7 +49,7 @@
           <label for="" class="form-info">*Your information will be treated with utmost confidentiality!</label>
           <input type="email" required placeholder="EMAIL" id="email">
           <input type="password" required placeholder="PASSWORD" id="password">
-          <div id="error"></div>
+          <div id="returnMsg"></div>
           <input type="submit" value="LOGIN" id="btn">
         </form>
 
@@ -121,8 +121,7 @@
       e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      const error = document.getElementById('error');
-      error.className = 'errMsg';
+      const returnMsg = document.getElementById('returnMsg');
 
       const myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/auth/login');
 
@@ -135,14 +134,27 @@
         })
       })
       .then(response => {
-        if(response.ok){
-          location.href = 'profile.html';
-        }
-
         return response.json();
       })
       .then(data => {
-        error.textContent = data.message;
+        if(data.status === 200){
+          returnMsg.style.display = 'none';
+
+          const token = data.data[0].token;
+          const firstName = data.data[0].user.firstName;
+          const lastName = data.data[0].user.lastName;
+
+          const user = {token, firstName, lastName};
+          localStorage.setItem('user', JSON.stringify(user));
+
+          location.href = 'profile.html';
+
+        } else {
+          returnMsg.style.display = 'inline-block';
+          returnMsg.className = 'userMsg';
+          returnMsg.style.background = 'red';
+          returnMsg.textContent = data.message;
+        }
       })
     };
 

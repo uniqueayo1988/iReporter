@@ -29,7 +29,7 @@
 
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <h2 class="user-name">John Doe</h2>
+        <h2 class="user-name"><span class="data"></span></h2>
         <a href="profile.html">Profile</a>
         <a href="create.html">Add Record</a>
         <a href="draft.html">My Drafts</a>
@@ -42,7 +42,7 @@
   <main>
     <div class="db-sidenav">
       <section>
-        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>John Doe</h2>
+        <h2 class="user-name"><i class="fa fa-user-circle"></i><br><span class="data"></span></h2>
         <ul>
           <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
           <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
@@ -59,17 +59,21 @@
       <section class="db-table">
         <h2 class="table-header">Create Record</h2>
 
-    <form action="">
+    <form action="" id="recordForm">
           <label for="" class="form-info">*CREATE A RED FLAG OR INTERVENTION RECORD</label>
-          <input type="text" required placeholder="TITLE OF RECORD">
-          <textarea required placeholder="WRITE A RECORD..." rows="10"></textarea><br>
-          <input type="radio" name="record-type" value="Red flag" checked> Red flag Record<br>
-          <input type="radio" name="record-type" value="Intervention"> Intervention Record<br><br>
+          <input type="text" placeholder="TITLE OF RECORD">
+          <textarea placeholder="WRITE A RECORD..." rows="10"></textarea><br>
+          <input type="radio" name="type" value="redFlag" checked=""> Red flag Record<br>
+          <input type="radio" name="type" value="intervention"> Intervention Record<br><br>
           <input id="geo-data" type="text" value="" disabled="" required placeholder="GEOLOCATION">
           <input id="geo-btn" type="button" value="Get Geolocation"><br><br>
 
-          <label>Select an image/video: </label><br>
-          <input type="file" name="myFile">
+          <label>Select an image: </label><br>
+          <input type="file" name="image" id="image">
+
+          <div class="userMsg-wrapper">
+            <div id="returnMsg"></div>
+          </div>
 
           <input type="submit" value="SUBMIT">
         </form>
@@ -98,6 +102,69 @@
         })
       }
     }
+
+    const returnMsg = document.getElementById('returnMsg');
+
+    const userName = document.querySelector('.data');
+
+    const objUser = JSON.parse(localStorage.user);
+    const token = objUser.token
+    const firstName = objUser.firstName
+    const lastName = objUser.lastName
+
+    userName.textContent = firstName + ' ' + lastName;
+
+
+    const myForm = document.getElementById('recordForm');
+    const recordLocation = document.querySelector('.location');
+
+    myForm.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const recordType = document.querySelector('input[name=type]:checked');
+      let url = '';
+
+      if (recordType.value === 'intervention') {
+        url = 'https://andela-ireporter.herokuapp.com/api/v1/interventions';
+      } else {
+        url = 'https://andela-ireporter.herokuapp.com/api/v1/red-flags';
+      }
+
+      recordLocation.disabled = false;
+      const formData = new FormData(this);
+      const myRequest = new Request(url);
+
+      fetch(myRequest, {
+        method: 'post',
+        headers: {
+        'x-access-token': token
+        },
+        body: formData
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        // error.textContent = data.message;
+        console.log(data);
+        recordLocation.disabled = true;
+
+        returnMsg.className = 'userMsg';
+        if(data.status === 201){
+          returnMsg.style.background = 'green';
+          returnMsg.textContent = data.data[0].message;
+        } else {
+          returnMsg.style.background = 'red';
+          returnMsg.textContent = data.message;
+        }
+      })
+      .catch(error => {
+        console.error(error)
+      })
+
+      this.reset();
+
+    })
   </script>
 
 </body>

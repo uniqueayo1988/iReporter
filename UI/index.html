@@ -54,7 +54,7 @@
           <input type="text" required placeholder="USERNAME" id="username">
           <input type="password" required placeholder="PASSWORD" id="password">
           <input type="password" required placeholder="CONFIRM PASSWORD" id="confirmPassword">
-          <div id="error"></div>
+          <div id="returnMsg"></div>
           <input type="submit" value="PROCEED" id="btn">
         </form>
       </div>
@@ -128,10 +128,12 @@
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
-      const error = document.getElementById('error');
-      error.className = 'errMsg';
+      const returnMsg = document.getElementById('returnMsg');
 
-      const myRequest = new Request('http://localhost:3000/api/v1/auth/signup');
+      returnMsg.style.display = 'inline-block';
+      returnMsg.className = 'userMsg';
+
+      const myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/auth/signup');
 
       if(confirmPassword === password) {
         fetch(myRequest, {
@@ -148,20 +150,32 @@
           })
         })
         .then(response => {
-          if(response.ok){
-            location.href = 'profile.html';
-          }
-
           return response.json();
         })
         .then(data => {
-          error.textContent = data.message;
+          if(data.status === 201){
+            returnMsg.style.display = 'none';
+
+            const token = data.data[0].token;
+            const firstName = data.data[0].user.firstName;
+            const lastName = data.data[0].user.lastName;
+
+            const user = {token, firstName, lastName};
+            localStorage.setItem('user', JSON.stringify(user));
+
+            location.href = 'profile.html';
+
+          } else {
+            returnMsg.style.background = 'red';
+            returnMsg.textContent = data.message;
+          }
         })
         .catch(function(err){
           console.log(err);
         })
       } else {
-        error.textContent = 'You have entered different passwords'
+        returnMsg.style.background = 'red';
+        returnMsg.textContent = 'You have entered different passwords'
       }
     };
 

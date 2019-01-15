@@ -167,8 +167,12 @@ form {
   margin: 0 10%;
 }
 
-.errMsg {
-  background: red;
+.userMsg-wrapper {
+  text-align: center;
+  color: #fff;
+}
+
+.userMsg {
   display: inline-block;
   margin-top: 10px;
   padding: 5px;
