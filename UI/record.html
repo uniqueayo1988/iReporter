@@ -29,7 +29,7 @@
 
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <h2 class="user-name">John Doe</h2>
+        <h2 class="user-name data"></h2>
         <a href="profile.html">Profile</a>
         <a href="create.html">Add Record</a>
         <a href="draft.html">My Drafts</a>
@@ -42,7 +42,7 @@
   <main>
     <div class="db-sidenav">
       <section>
-        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>John Doe</h2>
+        <h2 class="user-name"><i class="fa fa-user-circle"></i><br><span class="data"></span></h2>
         <ul>
           <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
           <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
@@ -55,12 +55,7 @@
 
     <div class="main-div">
       <section class="db-content">
-        <h2 class="record-header">THIS IS A RED FLAG REPORT</h2>
-        <span class="record-name">Mon,24 Jan,18 by Allen Olojumo</span>
-        <img src="img/fraud.jpg" alt="red-flag alert">
-        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
-        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
-        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
+
       </section>
 
     </div>
@@ -86,6 +81,7 @@
     function closeNav() {
       sideNav.style.width = "0";
     }
+
   </script>
 </body>
 </html>
