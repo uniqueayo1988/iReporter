@@ -82,6 +82,56 @@
       sideNav.style.width = "0";
     }
 
+
+
+    const userName = document.querySelectorAll('.data');
+
+    const objUser = JSON.parse(localStorage.user);
+    const token = objUser.token
+    const firstName = objUser.firstName
+    const lastName = objUser.lastName
+
+    for (let i = 0; i < userName.length; i++) {
+      userName[i].textContent = firstName + ' ' + lastName;
+    }
+
+    const url_string = location.href;
+    const url = new URL(url_string);
+    const id = url.searchParams.get('id');
+    const type = url.searchParams.get('type');
+
+    let sectionContent = document.querySelector('.db-content');
+
+    const myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/' + type + '/' + id);
+
+    fetch(myRequest, {
+      method: 'GET',
+      headers: {
+        'x-access-token': token
+      },
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      let recordHeader = document.createElement('h2');
+      recordHeader.className = 'record-header';
+      recordHeader.textContent = data.data[0].title.toUpperCase();
+      let spanRecord = document.createElement('span');
+      spanRecord.className = 'record-name'
+      spanRecord.textContent = data.data[0].createdon;
+      let recordImg = document.createElement('img');
+      recordImg.setAttribute('src', 'https://andela-ireporter.herokuapp.com/' + data.data[0].image + '')
+      recordImg.setAttribute('alt', 'Record Image')
+      let recordDiv = document.createElement('div');
+      recordDiv.innerHTML = '<br>' + data.data[0].comment;
+
+      sectionContent.appendChild(recordHeader)
+      sectionContent.appendChild(spanRecord)
+      sectionContent.appendChild(recordImg)
+      sectionContent.appendChild(recordDiv)
+    })
+
   </script>
 </body>
 </html>
