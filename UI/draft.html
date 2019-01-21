@@ -152,11 +152,11 @@
 
     let deleteId = (id) => {
       if(confirm("Click OK to delete this record")){
-        const myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/interventions/' + id);
+        const myRequest = new Request('http://localhost:3000/api/v1/red-flags/' + id);
 
         console.log(id);
         fetch(myRequest, {
-          method: 'GET',
+          method: 'DELETE',
           headers: {
             'x-access-token': token
           },
@@ -165,7 +165,10 @@
           return response.json();
         })
         .then(data => {
-          return data
+          if (data.status === 200){
+            location.reload(true);
+          }
+          console.log(data);
         })
       }
     }
