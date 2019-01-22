@@ -31,7 +31,7 @@
 
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <h2 class="user-name">John Doe</h2>
+        <h2 class="user-name data"></h2>
         <a href="profile.html">Profile</a>
         <a href="create.html">Add Record</a>
         <a href="draft.html">My Drafts</a>
@@ -44,7 +44,7 @@
   <main>
     <div class="db-sidenav">
       <section>
-        <h2 class="user-name"><i class="fa fa-user-circle"></i><br>John Doe</h2>
+        <h2 class="user-name"><i class="fa fa-user-circle"></i><br><span class="data"></span></h2>
         <ul>
           <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
           <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
@@ -63,16 +63,8 @@
 
     <form action="">
           <label for="" class="form-info">*EDIT RED FLAG OR INTERVENTION RECORD</label>
-          <input type="text" required placeholder="TITLE OF RECORD" value="THIS IS A RED FLAG REPORT">
-          <textarea required placeholder="WRITE A RECORD..." rows="10">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</textarea><br>
-          <input type="radio" name="record-type" value="Red flag" checked> Red flag Record<br>
-          <input type="radio" name="record-type" value="Intervention"> Intervention Record<br><br>
-          <br><br>
-          <input id="geo-data" type="text" value="lat: 1.4254 long:5.21425" disabled="" required placeholder="GEOLOCATION">
-          <input id="geo-btn" type="button" value="Get Geolocation"><br><br>
-
-          <label>Select an image/video: </label><br>
-          <input type="file" name="myFile">
+          <input type="text" required placeholder="TITLE OF RECORD" value="THIS IS A RED FLAG REPORT" id="recordTitle">
+          <textarea required placeholder="WRITE A RECORD..." rows="10" id="recordComment"></textarea><br>
 
           <input type="submit" value="SUBMIT">
         </form>
@@ -91,15 +83,45 @@
     <p class="footer-para">All rights reserved &copy; 2018</p>
   </footer>
 
+  <script src="js/script.js"></script>
   <script>
-    geoBtn.onclick = () => {
-      if ( navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          let geo = `lat:${position.coords.latitude} long:${position.coords.longitude}`;
-          geoData.value = geo;
-        })
-      }
+
+    const userName = document.querySelectorAll('.data');
+
+    const objUser = JSON.parse(localStorage.user);
+    const token = objUser.token
+    const firstName = objUser.firstName
+    const lastName = objUser.lastName
+
+    for (let i = 0; i < userName.length; i++) {
+      userName[i].textContent = firstName + ' ' + lastName;
     }
+
+    const url_string = location.href;
+    const url = new URL(url_string);
+    const id = url.searchParams.get('id');
+    const type = url.searchParams.get('type');
+
+    let recordTitle = document.getElementById('recordTitle');
+    let recordComment = document.getElementById('recordComment');
+    let recordCheck = document.querySelector('input[name=type]:checked');
+
+    const myRequest = new Request('http://localhost:3000/api/v1/' + type + '/' + id);
+
+    fetch(myRequest, {
+      method: 'GET',
+      headers: {
+        'x-access-token': token
+      },
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      recordTitle.value = data.data[0].title;
+      recordComment.textContent = data.data[0].comment;
+    })
+
   </script>
 </body>
 </html>
