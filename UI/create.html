@@ -61,12 +61,12 @@
 
     <form action="" id="recordForm">
           <label for="" class="form-info">*CREATE A RED FLAG OR INTERVENTION RECORD</label>
-          <input type="text" placeholder="TITLE OF RECORD">
-          <textarea placeholder="WRITE A RECORD..." rows="10"></textarea><br>
+          <input type="text" placeholder="TITLE OF RECORD" id="title" name="title">
+          <textarea placeholder="WRITE A RECORD..." rows="10" id="comment" name="comment"></textarea><br>
           <input type="radio" name="type" value="redFlag" checked=""> Red flag Record<br>
           <input type="radio" name="type" value="intervention"> Intervention Record<br><br>
-          <input id="geo-data" type="text" value="" disabled="" required placeholder="GEOLOCATION">
-          <input id="geo-btn" type="button" value="Get Geolocation"><br><br>
+          <input id="geo-data" type="text" disabled="" required placeholder="GEOLOCATION" name="location" class="location">
+          <input id="geo-btn" type="button" value="Get Geolocation"><br><br><br>
 
           <label>Select an image: </label><br>
           <input type="file" name="image" id="image">
@@ -75,7 +75,7 @@
             <div id="returnMsg"></div>
           </div>
 
-          <input type="submit" value="SUBMIT">
+          <input type="submit" value="SUBMIT" id="recordBtn">
         </form>
 
       </section>
@@ -97,8 +97,30 @@
     geoBtn.onclick = () => {
       if ( navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          let geo = `lat:${position.coords.latitude} long:${position.coords.longitude}`;
-          geoData.value = geo;
+
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+
+          const myRequest = new Request('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyAMBlwdnO6grtZ88dwLJy42Qw1PMumqI9U');
+
+          console.log(myRequest)
+
+          fetch(myRequest, {
+            headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+            method: 'GET'
+          })
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            geoData.value = data.plus_code.compound_code;
+          })
+          .catch(err => {
+            console.log('this is error' + err)
+          })
         })
       }
     }

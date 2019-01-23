@@ -102,9 +102,8 @@
     const id = url.searchParams.get('id');
     const type = url.searchParams.get('type');
 
-    let recordTitle = document.getElementById('recordTitle');
-    let recordComment = document.getElementById('recordComment');
-    let recordCheck = document.querySelector('input[name=type]:checked');
+    let recordTitle = document.getElementById('title');
+    let recordComment = document.getElementById('comment');
 
     const myRequest = new Request('http://localhost:3000/api/v1/' + type + '/' + id);
 
@@ -120,6 +119,39 @@
     .then(data => {
       recordTitle.value = data.data[0].title;
       recordComment.textContent = data.data[0].comment;
+    })
+
+
+    const editForm = document.getElementById('editForm');
+
+    editForm.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const myRequests = new Request('http://localhost:3000/api/v1/' + type + '/' + id + '/comment');
+
+      let title = recordTitle.value
+      let comment = recordComment.value;
+
+      const formData = new FormData(this);
+
+      fetch(myRequests, {
+        headers: {'Content-Type': 'application/json', 'x-access-token': token},
+        method: 'PATCH',
+        body: JSON.stringify({
+          title: title,
+          comment: comment
+        })
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data.data);
+      })
+      .catch(err => {
+        console.log('this is error ' + err)
+      })
+
     })
 
   </script>
