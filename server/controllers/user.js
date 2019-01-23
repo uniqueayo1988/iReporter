@@ -9,12 +9,6 @@ const User = {
    * @returns {object} user object
    */
   async signup(req, res) {
-    if (!Helper.isValidEmail(req.body.email)) {
-      return res.status(400).send({
-        status: 400,
-        message: 'Please enter a valid email address'
-      });
-    }
     const hashPassword = Helper.hashPassword(req.body.password);
 
     const createQuery = `INSERT INTO
@@ -72,29 +66,23 @@ const User = {
    * @returns {object} user object
    */
   async login(req, res) {
-    if (!Helper.isValidEmail(req.body.email)) {
-      return res.status(400).send({
-        status: 400,
-        message: 'Please enter a valid email address'
-      });
-    }
     const text = 'SELECT * FROM users WHERE email = $1';
     try {
       const { rows } = await db.query(text, [req.body.email]);
-      if (!rows[0]) {
-        return res.status(404).send({
-          status: 404,
-          message: 'The Email provided is not in our records'
+      if (!rows[0] || !Helper.comparePassword(rows[0].password, req.body.password)) {
+        return res.status(400).send({
+          status: 400,
+          message: 'You have entered invalid credentials'
         });
       }
-      if (!Helper.comparePassword(rows[0].password, req.body.password)) {
-        return res.status(400).send(
-          {
-            status: 400,
-            message: 'Your password is incorrect'
-          }
-        );
-      }
+      // if (!Helper.comparePassword(rows[0].password, req.body.password)) {
+      //   return res.status(400).send(
+      //     {
+      //       status: 400,
+      //       message: 'Your password is incorrect'
+      //     }
+      //   );
+      // }
       const token = Helper.generateToken(rows[0].id);
       const firstName = rows[0].firstname;
       const lastName = rows[0].lastname;

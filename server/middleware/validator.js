@@ -1,5 +1,3 @@
-import db from '../db';
-
 const Validator = {
   create(req, res, next) {
     if (!req.body.comment && req.body.location) {
@@ -84,15 +82,6 @@ const Validator = {
     const isEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(req.body.email);
     if (!isEmail) {
       return res.status(400).send({ message: 'Please enter a valid email address' });
-    }
-    return next();
-  },
-
-  async isAdmin(req, res, next) {
-    const userEmail = req.body.email;
-    const dbText = `SELECT email from users where firstname = 'Ayo'`;
-    if (userEmail !== dbText) {
-      return res.status(400).send({ message: 'Access Denied' });
     }
     return next();
   }

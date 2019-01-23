@@ -9,10 +9,11 @@ const router = express.Router();
 
 router.post('/red-flags', Upload.single('image'), Validator.create, Auth.verifyToken, Redflag.create);
 router.get('/red-flags', Auth.verifyToken, Redflag.getAll);
+router.get('/red-flags/users', Auth.verifyToken, Redflag.getAllUsers);
 router.get('/red-flags/:id', Validator.getOne, Auth.verifyToken, Redflag.getOne);
 router.patch('/red-flags/:id/location', Validator.getOne, Validator.updateLocation, Auth.verifyToken, Redflag.updateLocation);
 router.patch('/red-flags/:id/comment', Validator.getOne, Validator.updateComment, Auth.verifyToken, Redflag.updateComment);
-router.patch('/red-flags/:id/status', Validator.getOne, Validator.isAdmin, Auth.verifyToken, Redflag.updateStatus);
+router.patch('/red-flags/:id/status', Validator.getOne, Auth.verifyToken, Redflag.updateStatus);
 router.delete('/red-flags/:id', Validator.getOne, Auth.verifyToken, Redflag.delete);
 
 export default router;

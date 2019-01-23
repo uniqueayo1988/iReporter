@@ -41,7 +41,7 @@ const Intervention = {
   },
 
   /**
-   * Get all intervention records
+   * Get all intervention records for a user
    * @param {object} req
    * @param {object} res
    * @returns {object} all intervention records
@@ -50,6 +50,26 @@ const Intervention = {
     const getAllQuery = `SELECT * FROM incidents WHERE createdBy = $1 AND type = 'intervention'`;
     try {
       const { rows } = await db.query(getAllQuery, [req.user.id]);
+      const data = rows;
+      return res.status(200).send({
+        status: 200,
+        data
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
+  /**
+   * Get all intervention records for all users
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} all intervention records
+   */
+  async getAllUsers(req, res) {
+    const getAllUsersQuery = `SELECT * FROM incidents WHERE type = 'intervention'`;
+    try {
+      const { rows } = await db.query(getAllUsersQuery);
       const data = rows;
       return res.status(200).send({
         status: 200,

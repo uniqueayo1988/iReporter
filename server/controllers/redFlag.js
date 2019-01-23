@@ -41,7 +41,7 @@ const Redflag = {
   },
 
   /**
-   * Get all redFlags records
+   * Get all redFlags records for a user
    * @param {object} req
    * @param {object} res
    * @returns {object} all redFlag records
@@ -50,6 +50,26 @@ const Redflag = {
     const getAllQuery = `SELECT * FROM incidents WHERE createdBy = $1 AND type = 'redFlag'`;
     try {
       const { rows } = await db.query(getAllQuery, [req.user.id]);
+      const data = rows;
+      return res.status(200).send({
+        status: 200,
+        data
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
+  /**
+   * Get all redFlags records for all users
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} all redFlag records
+   */
+  async getAllUsers(req, res) {
+    const getAllQuery = `SELECT * FROM incidents WHERE type = 'redFlag'`;
+    try {
+      const { rows } = await db.query(getAllQuery);
       const data = rows;
       return res.status(200).send({
         status: 200,
