@@ -11,6 +11,7 @@ router.post('/red-flags', Upload.single('image'), Validator.create, Auth.verifyT
 router.get('/red-flags', Auth.verifyToken, Redflag.getAll);
 router.get('/red-flags/users', Auth.verifyToken, Redflag.getAllUsers);
 router.get('/red-flags/:id', Validator.getOne, Auth.verifyToken, Redflag.getOne);
+router.get('/red-flags/:id/user', Validator.getOne, Auth.verifyToken, Redflag.getOneUser);
 router.patch('/red-flags/:id/location', Validator.getOne, Validator.updateLocation, Auth.verifyToken, Redflag.updateLocation);
 router.patch('/red-flags/:id/comment', Validator.getOne, Validator.updateComment, Auth.verifyToken, Redflag.updateComment);
 router.patch('/red-flags/:id/status', Validator.getOne, Auth.verifyToken, Redflag.updateStatus);
