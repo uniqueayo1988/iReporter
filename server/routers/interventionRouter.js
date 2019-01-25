@@ -11,6 +11,7 @@ router.post('/interventions', Upload.single('image'), Validator.create, Auth.ver
 router.get('/interventions', Auth.verifyToken, Intervention.getAll);
 router.get('/interventions/users', Auth.verifyToken, Intervention.getAllUsers);
 router.get('/interventions/:id', Validator.getOne, Auth.verifyToken, Intervention.getOne);
+router.get('/interventions/:id/user', Validator.getOne, Auth.verifyToken, Intervention.getOneUser);
 router.patch('/interventions/:id/location', Validator.getOne, Validator.updateLocation, Auth.verifyToken, Intervention.updateLocation);
 router.patch('/interventions/:id/comment', Validator.getOne, Validator.updateComment, Auth.verifyToken, Intervention.updateComment);
 router.patch('/interventions/:id/status', Validator.getOne, Auth.verifyToken, Intervention.updateStatus);

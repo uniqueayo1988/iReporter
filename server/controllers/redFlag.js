@@ -106,6 +106,32 @@ const Redflag = {
     }
   },
 
+    /**
+   * Get a definite user record for admin
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} a single record
+   */
+  async getOneUser(req, res) {
+    const text = `SELECT * FROM incidents WHERE id = $1 AND type = 'redFlag'`;
+    try {
+      const { rows } = await db.query(text, [req.params.id]);
+      const recordDetails = rows[0];
+      if (!recordDetails) {
+        return res.status(404).send({
+          status: 404,
+          message: 'Red-Flag record not found'
+        });
+      }
+      return res.status(200).send({
+        status: 200,
+        data: [recordDetails]
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
   /**
    * Update Red-Flag
    * @param {object} req
