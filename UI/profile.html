@@ -17,9 +17,7 @@
 
         <div class="">
           <ul class="nav-menu">
-<!--             <li><a href="">Home</a></li>
-            <li><a href="#how" class="work-menu">How it works</a></li> -->
-            <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
+            <li><a href=""><button class="menu-btn logout">Logout</button></a></li>
           </ul>
 
           <!-- <div class="nav-icon" onclick= menu();> -->
@@ -36,7 +34,7 @@
         <a href="create.html">Add Record</a>
         <a href="draft.html">My Drafts</a>
         <a href="all-records.html">General Records</a>
-        <a href="index.html"><button class="menu-btn">Logout</button></a>
+        <a href=""><button class="menu-btn logout">Logout</button></a>
       </div>
     </nav>
   </header>
@@ -50,7 +48,7 @@
           <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
           <li class="nav-list"><a href="draft.html"><i class="fa fa-envelope-open-o"></i>My Drafts</a></li>
           <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>General Records</a></li>
-          <li class="nav-list"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+          <li class="nav-list logout"><a href=""><i class="fa fa-sign-out"></i>Logout</a></li>
         </ul>
       </section>
     </div>
@@ -142,6 +140,15 @@
 
   <script src="js/script.js"></script>
   <script>
+    let logout = document.querySelectorAll('.logout');
+    for (let i = 0; i < logout.length; i++) {
+      logout[i].onclick = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        location.href = 'login.html';
+      }
+    }
+
     const iDraft = document.querySelector('.iDraft');
     const iRejected = document.querySelector('.iRejected');
     const iResolved = document.querySelector('.iResolved');
@@ -194,15 +201,22 @@
       let accepted = 0;
       let rejected = 0;
       let underInv = 0;
-      console.log(data.data)
+
       for (let i = 0; i < data.data.length; i++) {
 
         let tabRow = document.createElement('tr');
 
         let tCol = '';
         tCol += '<td><img src="https://andela-ireporter.herokuapp.com/' + data.data[i].image + '" alt="Record Image"></td>';
-        tCol += '<td><a href="record.html?id=' + data.data[i].id + '&type=interventions"><h3 class="tr-header">' + data.data[i].title + '</h3><p>' + data.data[i].comment + '<br><span class="tb-date">' + data.data[i].createdon + '</span></p></a></d>'
-        tCol += '<td>' + data.data[i].type + '</td>';
+
+        let date = new Date(data.data[0].createdon);
+        let stringDate = date.toDateString();
+
+        tCol += '<td><a href="record.html?id=' + data.data[i].id + '&type=interventions"><h3 class="tr-header">' + data.data[i].title + '</h3><p>' + data.data[i].comment + '<br><span class="tb-date">' + stringDate + '</span></p></a></d>'
+
+        let typeCaps = data.data[0].type.toUpperCase();
+
+        tCol += '<td>' + typeCaps + '</td>';
         tCol += '<td>' + data.data[i].status + '</td>';
 
         tabRow.innerHTML = tCol;
@@ -257,27 +271,31 @@
 
       redflagTable.appendChild(tRow);
 
-      // let comment = "";
       let draft = 0;
       let resolved = 0;
       let rejected = 0;
       let underInv = 0;
-      console.log(data.data)
+
       for (let i = 0; i < data.data.length; i++) {
 
         let tabRow = document.createElement('tr');
 
         let tCol = '';
         tCol += '<td><img src="https://andela-ireporter.herokuapp.com/' + data.data[i].image + '" alt="Record Image"></td>';
-        tCol += '<td><a href="record.html?id=' + data.data[i].id + '&type=red-flags"><h3 class="tr-header">' + data.data[i].title + '</h3><p>' + data.data[i].comment + '<br><span class="tb-date">' + data.data[i].createdon + '</span></p></a></d>'
-        tCol += '<td>' + data.data[i].type + '</td>';
+
+        let date = new Date(data.data[0].createdon);
+        let stringDate = date.toDateString();
+
+        tCol += '<td><a href="record.html?id=' + data.data[i].id + '&type=red-flags"><h3 class="tr-header">' + data.data[i].title + '</h3><p>' + data.data[i].comment + '<br><span class="tb-date">' + stringDate + '</span></p></a></d>'
+
+        let typeCaps = data.data[0].type.toUpperCase();
+
+        tCol += '<td>' + typeCaps + '</td>';
         tCol += '<td>' + data.data[i].status + '</td>';
 
         tabRow.innerHTML = tCol;
         redflagTable.appendChild(tabRow);
 
-
-        console.log(data.data[i].comment)
         if (data.data[i].status === 'draft') {
           draft += 1;
         } else if (data.data[i].status === 'resolved') {
@@ -293,9 +311,6 @@
       rRejected.textContent = rejected;
       rResolved.textContent = resolved;
       rUnderInvestigation.textContent = underInv;
-    })
-    .catch(err => {
-      console.log(err)
     })
 
     redflagTable.style.display = "table";
