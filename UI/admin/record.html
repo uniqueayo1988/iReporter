@@ -17,7 +17,7 @@
 
         <div class="">
           <ul class="nav-menu">
-            <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
+            <li><a href=""><button class="menu-btn logout">Logout</button></a></li>
           </ul>
 
           <div class="nav-icon" onclick="openNav()";>
@@ -30,8 +30,7 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <h2 class="user-name">Admin</h2>
         <a href="index.html">Home</a>
-        <a href="all-records.html">All Records</a>
-        <a href="../index.html"><button class="menu-btn">Logout</button></a>
+        <a href=""><button class="menu-btn logout">Logout</button></a>
       </div>
     </nav>
   </header>
@@ -42,8 +41,7 @@
         <h2 class="user-name"><i class="fa fa-user-circle"></i><br>Admin</h2>
         <ul>
           <li class="nav-list"><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
-          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>User Records</a></li>
-          <li class="nav-list"><a href="../index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+          <li class="nav-list logout"><a href=""><i class="fa fa-sign-out"></i>Logout</a></li>
         </ul>
       </section>
     </div>
@@ -52,23 +50,19 @@
       <h1 class="db-header">ADMIN DASHBOARD</h1><hr>
 
       <section class="db-content">
-        <h2 class="record-header">THIS IS A RED FLAG REPORT</h2>
-        <span class="record-name">Mon,24 Jan,18 by Allen Olojumo</span>
-        <img src="../img/fraud.jpg" alt="red-flag alert">
-        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
-        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
-        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
 
-        <div>
-          <select name="" id="" class="admin-status">
-            <option value="Draft">Draft</option>
-            <option value="Accepted">Accepted</option>
-            <option value="Under Investigation">Under Investigation</option>
-            <option value="Rejected">Rejected</option>
-          </select>
-          <button class="admin-status admin-save">Save</button>
-        </div>
       </section>
+
+      <div class="statusContainer" style="width: 80%; margin:auto; padding: 20px 0;">
+        <button id="statusBtn"></button>
+        <select id="status">
+          <option value="">Update status</option>
+          <option>draft</option>
+          <option>resolved</option>
+          <option>rejected</option>
+          <option>under investigation</option>
+        </select>
+      </div>
 
     </div>
 
@@ -83,5 +77,100 @@
   </footer>
 
   <script src="../js/script.js"></script>
+
+  <script>
+    let logout = document.querySelectorAll('.logout');
+    for (let i = 0; i < logout.length; i++) {
+      logout[i].onclick = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        location.href = '../login.html';
+      }
+    }
+
+    const objUser = JSON.parse(localStorage.user);
+    const token = objUser.token
+
+    const url_string = location.href;
+    const url = new URL(url_string);
+    const id = url.searchParams.get('id');
+    const type = url.searchParams.get('type');
+
+    let sectionContent = document.querySelector('.db-content');
+
+    let statusBtn = document.getElementById('statusBtn');
+
+    const myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/' + type + '/' + id + '/user');
+
+    fetch(myRequest, {
+      method: 'GET',
+      headers: {
+        'x-access-token': token
+      },
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log(data.data)
+      let recordHeader = document.createElement('h2');
+      recordHeader.className = 'record-header';
+      recordHeader.textContent = data.data[0].title.toUpperCase();
+
+      let spanRecord = document.createElement('span');
+      spanRecord.className = 'record-name'
+
+      let date = new Date(data.data[0].createdon);
+      let stringDate = date.toDateString();
+      spanRecord.textContent = stringDate + ' - Userid: ' + data.data[0].createdby;
+
+      let recordImg = document.createElement('img');
+      recordImg.setAttribute('src', 'https://andela-ireporter.herokuapp.com/' + data.data[0].image + '')
+      recordImg.setAttribute('alt', 'Record Image')
+
+      let recordDiv = document.createElement('div');
+      recordDiv.innerHTML = '<br>' + data.data[0].comment;
+
+      sectionContent.appendChild(recordHeader)
+      sectionContent.appendChild(spanRecord)
+      sectionContent.appendChild(recordImg)
+      sectionContent.appendChild(recordDiv)
+
+      statusBtn.textContent = data.data[0].status
+    })
+
+
+
+
+    let status = document.getElementById('status');
+
+    status.onchange = () => {
+      const statusUpdate = status.value;
+      if (statusUpdate) {
+        statusBtn.textContent = statusUpdate.toUpperCase()
+
+        const myRequests = new Request('https://andela-ireporter.herokuapp.com/api/v1/' + type + '/' + id + '/status');
+
+        fetch(myRequests, {
+          headers: {'Content-Type': 'application/json', 'x-access-token': token},
+          method: 'PATCH',
+          body: JSON.stringify({
+            status: statusUpdate
+          })
+        })
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          console.log(data.data);
+        })
+        .catch(err => {
+          console.log('this is error ' + err)
+        })
+
+      }
+    }
+
+  </script>
 </body>
 </html>

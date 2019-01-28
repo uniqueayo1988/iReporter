@@ -17,7 +17,7 @@
 
         <div class="">
           <ul class="nav-menu">
-            <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
+            <li><a href=""><button class="menu-btn logout">Logout</button></a></li>
           </ul>
 
           <!-- <div class="nav-icon" onclick= menu();> -->
@@ -33,8 +33,7 @@
         <a href="profile.html">Profile</a>
         <a href="create.html">Add Record</a>
         <a href="draft.html">My Drafts</a>
-        <a href="draft.html">General Records</a>
-        <a href="index.html"><button class="menu-btn">Logout</button></a>
+        <a href=""><button class="menu-btn logout">Logout</button></a>
       </div>
     </nav>
   </header>
@@ -47,8 +46,7 @@
           <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
           <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
           <li class="nav-list"><a href="draft.html"><i class="fa fa-envelope-open-o"></i>My Drafts</a></li>
-          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>General Records</a></li>
-          <li class="nav-list"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+          <li class="nav-list logout"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
         </ul>
       </section>
     </div>
@@ -72,6 +70,15 @@
 
 
   <script>
+    let logout = document.querySelectorAll('.logout');
+    for (let i = 0; i < logout.length; i++) {
+      logout[i].onclick = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        location.href = 'login.html';
+      }
+    }
+
     let sideNav = document.getElementById("mySidenav");
 
     function openNav() {
@@ -81,8 +88,6 @@
     function closeNav() {
       sideNav.style.width = "0";
     }
-
-
 
     const userName = document.querySelectorAll('.data');
 
@@ -117,12 +122,18 @@
       let recordHeader = document.createElement('h2');
       recordHeader.className = 'record-header';
       recordHeader.textContent = data.data[0].title.toUpperCase();
+
       let spanRecord = document.createElement('span');
       spanRecord.className = 'record-name'
-      spanRecord.textContent = data.data[0].createdon;
+
+      let date = new Date(data.data[0].createdon);
+      let stringDate = date.toDateString();
+      spanRecord.textContent = stringDate;
+
       let recordImg = document.createElement('img');
       recordImg.setAttribute('src', 'https://andela-ireporter.herokuapp.com/' + data.data[0].image + '')
       recordImg.setAttribute('alt', 'Record Image')
+
       let recordDiv = document.createElement('div');
       recordDiv.innerHTML = '<br>' + data.data[0].comment;
 
