@@ -143,11 +143,16 @@
           const token = data.data[0].token;
           const firstName = data.data[0].user.firstName;
           const lastName = data.data[0].user.lastName;
+          const email = data.data[0].user.email
 
           const user = {token, firstName, lastName};
           localStorage.setItem('user', JSON.stringify(user));
 
-          location.href = 'profile.html';
+          if(firstName === 'admin' && email === 'admin@admin.com') {
+            location.href = 'admin/index.html'
+          } else {
+            location.href = 'profile.html';
+          }
 
         } else {
           returnMsg.style.display = 'inline-block';
@@ -155,6 +160,11 @@
           returnMsg.style.background = 'red';
           returnMsg.textContent = data.message;
         }
+      })
+      .catch(err => {
+        returnMsg.className = 'userMsg';
+        returnMsg.style.background = 'red';
+        returnMsg.textContent = 'Unable to reach the server';
       })
     };
 

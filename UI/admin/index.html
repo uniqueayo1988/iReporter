@@ -109,7 +109,6 @@
       return response.json();
     })
     .then(data => {
-      console.log(data.data)
 
       let tRows = document.createElement('tr');
       tRows.className = 'tr-header';
@@ -168,9 +167,6 @@
           .then(data => {
             console.log(data.data);
           })
-          .catch(err => {
-            console.log('this is error ' + err)
-          })
 
         }
       }
@@ -190,8 +186,6 @@
       return response.json();
     })
     .then(data => {
-      console.log(data.data)
-
       let tRows = document.createElement('tr');
       tRows.className = 'tr-header';
 
@@ -248,9 +242,6 @@
           })
           .then(data => {
             console.log(data.data);
-          })
-          .catch(err => {
-            console.log('this is error ' + err)
           })
 
         }

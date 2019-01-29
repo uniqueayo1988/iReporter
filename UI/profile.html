@@ -196,7 +196,7 @@
       recordTable.appendChild(tRow);
 
       let draft = 0;
-      let accepted = 0;
+      let resolved = 0;
       let rejected = 0;
       let underInv = 0;
 
@@ -222,7 +222,7 @@
 
         if (data.data[i].status === 'draft') {
           draft += 1;
-        } else if (data.data[i].status === 'accepted') {
+        } else if (data.data[i].status === 'resolved') {
           accepted += 1;
         } else if (data.data[i].status === 'rejected') {
           rejected += 1;
@@ -236,9 +236,6 @@
       iResolved.textContent = resolved;
       iUnderInvestigation.textContent = underInv;
 
-    })
-    .catch(err => {
-      console.log(err)
     })
 
 

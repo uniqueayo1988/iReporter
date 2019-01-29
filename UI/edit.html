@@ -17,12 +17,9 @@
 
         <div class="">
           <ul class="nav-menu">
-<!--             <li><a href="">Home</a></li>
-            <li><a href="#how" class="work-menu">How it works</a></li> -->
-            <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
+            <li><a href=""><button class="menu-btn logout">Logout</button></a></li>
           </ul>
 
-          <!-- <div class="nav-icon" onclick= menu();> -->
           <div class="nav-icon" onclick="openNav()";>
             <span class="navs">&#9776</span>
           </div>
@@ -35,8 +32,7 @@
         <a href="profile.html">Profile</a>
         <a href="create.html">Add Record</a>
         <a href="draft.html">My Drafts</a>
-        <a href="draft.html">General Records</a>
-        <a href="index.html"><button class="menu-btn">Logout</button></a>
+        <a href=""><button class="menu-btn logout">Logout</button></a>
       </div>
     </nav>
   </header>
@@ -49,8 +45,7 @@
           <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
           <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
           <li class="nav-list"><a href="draft.html"><i class="fa fa-envelope-open-o"></i>My Drafts</a></li>
-          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>General Records</a></li>
-          <li class="nav-list"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+          <li class="nav-list logout"><a href=""><i class="fa fa-sign-out"></i>Logout</a></li>
         </ul>
       </section>
     </div>
@@ -61,12 +56,16 @@
       <section class="db-table">
         <h2 class="table-header">Edit Record</h2>
 
-    <form action="">
+        <form action="" id="editForm">
           <label for="" class="form-info">*EDIT RED FLAG OR INTERVENTION RECORD</label>
-          <input type="text" required placeholder="TITLE OF RECORD" value="THIS IS A RED FLAG REPORT" id="recordTitle">
-          <textarea required placeholder="WRITE A RECORD..." rows="10" id="recordComment"></textarea><br>
+          <input type="text" required placeholder="TITLE OF RECORD" name="title" id="title">
+          <textarea required placeholder="WRITE A RECORD..." rows="10" id="comment" name="comment"></textarea><br>
 
-          <input type="submit" value="SUBMIT">
+          <div class="userMsg-wrapper">
+            <div id="returnMsg"></div>
+          </div>
+
+          <input type="submit" value="UPDATE">
         </form>
 
       </section>
@@ -85,6 +84,14 @@
 
   <script src="js/script.js"></script>
   <script>
+    let logout = document.querySelectorAll('.logout');
+    for (let i = 0; i < logout.length; i++) {
+      logout[i].onclick = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        location.href = 'login.html';
+      }
+    }
 
     const userName = document.querySelectorAll('.data');
 
@@ -127,6 +134,9 @@
     editForm.addEventListener('submit', function(e){
       e.preventDefault();
 
+      const returnMsg = document.getElementById('returnMsg');
+      const returnStyle = returnMsg.style;
+
       const myRequests = new Request('http://localhost:3000/api/v1/' + type + '/' + id + '/comment');
 
       let title = recordTitle.value
@@ -146,10 +156,15 @@
         return response.json();
       })
       .then(data => {
-        console.log(data.data);
-      })
-      .catch(err => {
-        console.log('this is error ' + err)
+        returnStyle.display = 'inline-block';
+        returnMsg.className = 'userMsg';
+        returnStyle.background = 'rgb(0, 255, 0)';
+        returnMsg.textContent = data.data[0].message;
+
+        returnStyle.opacity = 1;
+        (function fade() {
+          (returnStyle.opacity-=.1) < 0 ? returnStyle.display = "none" : setTimeout(fade,450)
+        })()
       })
 
     })

@@ -17,7 +17,7 @@
 
         <div class="">
           <ul class="nav-menu">
-            <li><a href="index.html"><button class="menu-btn">Logout</button></a></li>
+            <li><a href=""><button class="menu-btn logout">Logout</button></a></li>
           </ul>
 
           <div class="nav-icon" onclick="openNav()";>
@@ -32,8 +32,7 @@
         <a href="profile.html">Profile</a>
         <a href="create.html">Add Record</a>
         <a href="draft.html">My Drafts</a>
-        <a href="all-records.html">General Records</a>
-        <a href="index.html"><button class="menu-btn">Logout</button></a>
+        <a href=""><button class="menu-btn logout">Logout</button></a>
       </div>
     </nav>
   </header>
@@ -46,8 +45,7 @@
           <li class="nav-list"><a href="profile.html"><i class="fa fa-user-o"></i>Profile</a></li>
           <li class="nav-list"><a href="create.html"><i class="fa fa-plus"></i>Add Record</a></li>
           <li class="nav-list"><a href="draft.html"><i class="fa fa-envelope-open-o"></i>My Drafts</a></li>
-          <li class="nav-list"><a href="all-records.html"><i class="fa fa-address-book-o"></i>General Records</a></li>
-          <li class="nav-list"><a href="index.html"><i class="fa fa-sign-out"></i>Logout</a></li>
+          <li class="nav-list logout"><a href=""><i class="fa fa-sign-out"></i>Logout</a></li>
         </ul>
       </section>
     </div>
@@ -60,11 +58,41 @@
 
         <div style="overflow-x:auto;">
           <a href="create.html"><button class="menu-btn tb-btn"><i class="fa fa-plus tb-fa"></i>Add Record</button></a>
+          <div style="float: right;">
+            <button class="menu-btn tb-btn showRecord" onclick="showRecord()"><i class="fa fa-plus tb-fa"></i>Red flags</button>
+            <button class="menu-btn tb-btn showInt" onclick="showInt()"><i class="fa fa-plus tb-fa"></i>Interventions</button>
+          </div>
+
+          <table id="draftRedflag">
+
+          </table>
+
           <table id="draftRecord">
 
           </table>
+
         </div>
 
+      </section>
+
+      <!-- The Location modal -->
+      <section>
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <form action="" id="geoForm">
+              <label for="" class="form-info">*UPDATE RECORD LOCATION</label>
+              <input id="geo-data" type="text" disabled="" required placeholder="GEOLOCATION" name="location" class="location">
+              <input id="geo-btn" type="button" value="Get Geolocation"><br><br>
+
+              <div class="userMsg-wrapper">
+                <div id="returnMsg"></div>
+              </div>
+
+              <input type="submit" value="SUBMIT" id="submitGeo">
+            </form>
+          </div>
+        </div>
       </section>
 
     </div>
@@ -82,6 +110,16 @@
 
   <script src="js/script.js"></script>
   <script>
+
+    let logout = document.querySelectorAll('.logout');
+    for (let i = 0; i < logout.length; i++) {
+      logout[i].onclick = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        location.href = 'login.html';
+      }
+    }
+
     const userName = document.querySelectorAll('.data');
 
     const objUser = JSON.parse(localStorage.user);
@@ -96,7 +134,7 @@
 
     const recordTable = document.getElementById('draftRecord')
 
-    const myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/interventions');
+    const myRequest = new Request('https//andela-ireporter.herokuapp.com/api/v1/interventions');
 
     fetch(myRequest, {
       method: 'GET',
@@ -125,6 +163,156 @@
 
       let draft = 0;
 
+      for (let i = 0; i < data.data.length; i++) {
+
+        if (data.data[i].status === 'draft') {
+          let tabRow = document.createElement('tr');
+          let tCol = '';
+          let num = 1;
+          num+=i;
+
+          tCol += '<td>' + num + '</td>';
+
+          let date = new Date(data.data[i].createdon);
+          let stringDate = date.toDateString();
+
+          tCol += '<td><a href="edit.html?id=' + data.data[i].id + '&type=interventions"><h3 class="tr-header">' + data.data[i].title + '</h3><p>' + data.data[i].comment + '<br><span class="tb-date">' + stringDate + '</span></p></a></d>'
+
+          let typeCaps = data.data[i].type.toUpperCase();
+
+          tCol += '<td>' + typeCaps + '</td>';
+          tCol += '<td>' + data.data[i].location + '<br><button class="locationBtn" name="' + data.data[i].id + '"><span class="tb-date">Change</span></button></td>';
+          tCol += '<td class="td-action"><a href="edit.html?id=' + data.data[i].id + '&type=interventions"><i class="fa fa-edit tb-edit"></i></a></td>';
+          tCol += '<td class="td-action"><i class="fa fa-trash tb-delete" onClick="deleteId(' + data.data[i].id + ', \'interventions\')"></i></td>'
+
+          tabRow.innerHTML = tCol;
+          recordTable.appendChild(tabRow);
+
+          let locationBtn = document.querySelectorAll('.locationBtn');
+          let modal = document.getElementById('myModal');
+          let span = document.querySelector('.close');
+
+          for (let i = 0; i < locationBtn.length; i++) {
+            locationBtn[i].onclick =(e) => {
+              let id = e.currentTarget.name;
+              geoData.value = data.data[i].location;
+              geoData.name = id;
+              modal.style.display = 'block';
+            }
+          }
+
+          span.onclick = () => {
+            modal.style.display = 'none';
+          }
+
+          window.onclick = (e) => {
+            if(e.target == modal) {
+              modal.style.display = 'none';
+            }
+          }
+
+          geoBtn.onclick = () => {
+            if ( navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition((position) => {
+
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                const myRequest = new Request('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyAMBlwdnO6grtZ88dwLJy42Qw1PMumqI9U');
+
+                fetch(myRequest, {
+                  headers: {
+                  'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                  },
+                  method: 'GET'
+                })
+                .then(response => {
+                  return response.json();
+                })
+                .then(data => {
+                  geoData.value = data.plus_code.compound_code;
+                })
+              })
+            }
+          }
+        }
+      }
+
+    let submitGe = document.getElementById('submitGeo')
+
+    submitGe.onclick = (e) => {
+      e.preventDefault();
+
+      let id = geoData.name;
+      let location = geoData.value;
+
+      const returnMsg = document.getElementById('returnMsg');
+      const returnStyle = returnMsg.style;
+
+      const intRequest = new Request('https//andela-ireporter.herokuapp.com/api/v1/interventions/' + id + '/location');
+
+      fetch(intRequest, {
+        headers: {'Content-Type': 'application/json', 'x-access-token': token},
+        method: 'PATCH',
+        body: JSON.stringify({
+          location: location
+        })
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === 200) {
+          returnStyle.display = 'inline-block';
+          returnMsg.className = 'userMsg';
+          returnStyle.background = 'rgb(0, 255, 0)';
+          returnMsg.textContent = data.data[0].message;
+
+          returnStyle.opacity = 1;
+          (function fade() {
+            (returnStyle.opacity-=.1) < 0 ? returnStyle.display = "none" : setTimeout(fade,400)
+
+          window.location.reload(true);
+          })()
+
+        }
+      })
+    }
+
+    })
+
+    const redflagTable = document.getElementById('draftRedflag')
+
+    const myUrl = new Request('https//andela-ireporter.herokuapp.com/api/v1/red-flags');
+
+    fetch(myUrl, {
+      method: 'GET',
+      headers: {
+        'x-access-token': token
+      },
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      let tRows = document.createElement('tr');
+      tRows.className = 'tr-header';
+
+      let tHeads = '';
+      tHeads += '<th>S/N</th>';
+      tHeads += '<th>Record</th>';
+      tHeads += '<th>Type</th>';
+      tHeads += '<th>Location</th>';
+      tHeads += '<th>Edit</th>';
+      tHeads += '<th>Delete</th>';
+
+      tRows.innerHTML = tHeads;
+
+      redflagTable.appendChild(tRows);
+
+      let draft = 0;
+
       console.log(data.data)
       for (let i = 0; i < data.data.length; i++) {
 
@@ -135,24 +323,138 @@
           num+=i;
 
           tCol += '<td>' + num + '</td>';
-          tCol += '<td><a href="edit.html?id=' + data.data[i].id + '&type=interventions"><h3 class="tr-header">' + data.data[i].title + '</h3><p>' + data.data[i].comment + '<br><span class="tb-date">' + data.data[i].createdon + '</span></p></a></d>'
-          tCol += '<td>' + data.data[i].type + '</td>';
-          tCol += '<td>' + data.data[i].location + '</td>';
-          tCol += '<td class="td-action"><a href="edit.html?id=' + data.data[i].id + '&type=interventions"><i class="fa fa-edit tb-edit"></i></a></td>';
-          tCol += '<td class="td-action"><i class="fa fa-trash tb-delete" onClick="deleteId(' + data.data[i].id + ')"></i></td>'
+
+          let date = new Date(data.data[i].createdon);
+          let stringDate = date.toDateString();
+
+          tCol += '<td><a href="edit.html?id=' + data.data[i].id + '&type=red-flags"><h3 class="tr-header">' + data.data[i].title + '</h3><p>' + data.data[i].comment + '<br><span class="tb-date">' + stringDate + '</span></p></a></d>'
+
+          let typeCaps = data.data[i].type.toUpperCase();
+
+          tCol += '<td>' + typeCaps + '</td>';
+          tCol += '<td>' + data.data[i].location + '<br><button class="locationBtn" name="' + data.data[i].id + '"><span class="tb-date">Change</span></button></td>';
+          tCol += '<td class="td-action"><a href="edit.html?id=' + data.data[i].id + '&type=red-flags"><i class="fa fa-edit tb-edit"></i></a></td>';
+          tCol += '<td class="td-action"><i class="fa fa-trash tb-delete" onClick="deleteId(' + data.data[i].id + ', \'red-flags\')"></i></td>';
 
           tabRow.innerHTML = tCol;
-          recordTable.appendChild(tabRow);
+          redflagTable.appendChild(tabRow);
+
+          let locationBtn = document.querySelectorAll('.locationBtn');
+          let modal = document.getElementById('myModal');
+          let span = document.querySelector('.close');
+
+          for (let i = 0; i < locationBtn.length; i++) {
+            locationBtn[i].onclick =(e) => {
+              let id = e.currentTarget.name;
+              geoData.value = data.data[i].location;
+              geoData.name = id;
+              modal.style.display = 'block';
+            }
+          }
+
+          span.onclick = () => {
+            modal.style.display = 'none';
+          }
+
+          window.onclick = (e) => {
+            if(e.target == modal) {
+              modal.style.display = 'none';
+            }
+          }
+
+          geoBtn.onclick = () => {
+            if ( navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition((position) => {
+
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                const myRequest = new Request('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyAMBlwdnO6grtZ88dwLJy42Qw1PMumqI9U');
+
+                fetch(myRequest, {
+                  headers: {
+                  'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                  },
+                  method: 'GET'
+                })
+                .then(response => {
+                  return response.json();
+                })
+                .then(data => {
+                  geoData.value = data.plus_code.compound_code;
+                })
+              })
+            }
+          }
         }
       }
+
+    let submitGeo = document.getElementById('submitGeo')
+
+    submitGeo.onclick = (e) => {
+      e.preventDefault();
+
+      let id = geoData.name;
+      let location = geoData.value;
+
+      const returnMsg = document.getElementById('returnMsg');
+      const returnStyle = returnMsg.style;
+
+      const myRequests = new Request('https//andela-ireporter.herokuapp.com/api/v1/red-flags/' + id + '/location');
+
+      fetch(myRequests, {
+        headers: {'Content-Type': 'application/json', 'x-access-token': token},
+        method: 'PATCH',
+        body: JSON.stringify({
+          location: location
+        })
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        if (data.status === 200) {
+          returnStyle.display = 'inline-block';
+          returnMsg.className = 'userMsg';
+          returnStyle.background = 'rgb(0, 255, 0)';
+          returnMsg.textContent = data.data[0].message;
+
+          returnStyle.opacity = 1;
+          (function fade() {
+            (returnStyle.opacity-=.1) < 0 ? returnStyle.display = "none" : setTimeout(fade,400)
+          window.location.reload(true);
+          })()
+
+        }
+      })
+    }
+
     })
     .catch(err => {
-      console.log(err)
+      console.log('Can not reach server' + err)
     })
 
-    let deleteId = (id) => {
+    redflagTable.style.display = "table";
+    recordTable.style.display = "none";
+
+    let showRecord = () => {
+      if (redflagTable.style.display == "none") {
+        redflagTable.style.display = "table";
+        recordTable.style.display = "none";
+      }
+    }
+
+    let showInt = () => {
+      if (recordTable.style.display == "none") {
+        redflagTable.style.display = "none";
+        recordTable.style.display = "table";
+      }
+    }
+
+    let deleteId = (id, type) => {
       if(confirm("Click OK to delete this record")){
-        const myRequest = new Request('http://localhost:3000/api/v1/red-flags/' + id);
+        const myRequest = new Request('https//andela-ireporter.herokuapp.com/api/v1/' + type + '/' + id);
 
         console.log(id);
         fetch(myRequest, {
@@ -168,7 +470,6 @@
           if (data.status === 200){
             location.reload(true);
           }
-          console.log(data);
         })
       }
     }
