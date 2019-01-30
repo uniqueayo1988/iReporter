@@ -130,9 +130,6 @@
       const confirmPassword = document.getElementById('confirmPassword').value;
       const returnMsg = document.getElementById('returnMsg');
 
-      returnMsg.style.display = 'inline-block';
-      returnMsg.className = 'userMsg';
-
       const myRequest = new Request('https://andela-ireporter.herokuapp.com/api/v1/auth/signup');
 
       if(confirmPassword === password) {
@@ -166,14 +163,19 @@
             location.href = 'profile.html';
 
           } else {
+            returnMsg.style.display = 'inline-block';
+            returnMsg.className = 'userMsg';
             returnMsg.style.background = 'red';
             returnMsg.textContent = data.message;
           }
         })
         .catch(function(err){
-          console.log(err);
+          returnMsg.className = 'userMsg';
+          returnMsg.style.background = 'red';
+          returnMsg.textContent = 'Unable to reach the server';
         })
       } else {
+        returnMsg.className = 'userMsg';
         returnMsg.style.background = 'red';
         returnMsg.textContent = 'You have entered different passwords'
       }
